@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@100;200;300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Urbanist", sans-serif;
+  scrollbar-color: rgba(64, 64, 64, 1) rgba(38, 38, 38, 1);
+}
+
+.stroke-\[2px\] > path {
+  stroke-width: 2.5px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(38, 38, 38, 1);
+}
+::-webkit-scrollbar-thumb:vertical {
+  background: rgba(64, 64, 64, 1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(88, 88, 88, 1);
+}
