@@ -286,6 +286,7 @@ function App() {
               ["divider"],
               ["title", "Settings"],
               ["Settings", "tabler:settings"],
+              ["Plugins", "tabler:plug"],
               ["Personalization", "tabler:palette"],
               ["Server Status", "tabler:server"],
               ["divider"],
@@ -368,8 +369,8 @@ function App() {
             </div>
           </div>
         </header>
-        <div className="overflow-y-auto px-12">
-          <div className="w-full flex flex-col h-full pb-8">
+        <div className="overflow-y-auto px-12 flex flex-col w-full">
+          <div className="w-full flex flex-col mb-8">
             <div className="flex items-center justify-between">
               <h1 className="text-4xl font-semibold text-neutral-50">
                 Dashboard
@@ -391,7 +392,7 @@ function App() {
                   520 GB of 1 TB used
                 </p>
               </section>
-              <section className="flex flex-col gap-4 p-6 bg-neutral-800/50 rounded-lg w-full col-span-3 h-full">
+              <section className="flex flex-col gap-4 p-6 bg-neutral-800/50 rounded-lg w-full col-span-2 h-full">
                 <h1 className="flex items-center gap-2 text-xl font-semibold mb-2">
                   <Icon icon="tabler:chart-line" className="text-2xl" />
                   <span className="ml-2">Code Time</span>
@@ -399,6 +400,41 @@ function App() {
                 <div className="w-full h-72">
                   <Line data={data2} options={options2} />
                 </div>
+              </section>
+              <section className="flex flex-col gap-4 p-6 bg-neutral-800/50 rounded-lg w-full col-span-1">
+                <h1 className="flex items-center gap-2 text-xl font-semibold mb-2">
+                  <Icon icon="tabler:calendar" className="text-2xl" />
+                  <span className="ml-2">Today's Event</span>
+                </h1>
+                <ul className="flex flex-col gap-4 h-full">
+                  <li className="flex items-center flex-1 justify-between gap-4 p-4 bg-neutral-800 rounded-lg">
+                    <div className="w-1.5 h-full rounded-full bg-rose-500" />
+                    <div className="flex flex-col w-full gap-1">
+                      <div className="text-neutral-50 font-semibold">
+                        Coldplay's concert
+                      </div>
+                      <div className="text-neutral-500 text-sm">8:00 PM</div>
+                    </div>
+                  </li>
+                  <li className="flex items-center flex-1 justify-between gap-4 p-4 bg-neutral-800 rounded-lg">
+                    <div className="w-1.5 h-full rounded-full bg-purple-500" />
+                    <div className="flex flex-col w-full gap-1">
+                      <div className="text-neutral-50 font-semibold">
+                        Meeting with client
+                      </div>
+                      <div className="text-neutral-500 text-sm">10:00 PM</div>
+                    </div>
+                  </li>
+                  <li className="flex items-center flex-1 justify-between gap-4 p-4 bg-neutral-800 rounded-lg">
+                    <div className="w-1.5 h-full rounded-full bg-purple-500" />
+                    <div className="flex flex-col w-full gap-1">
+                      <div className="text-neutral-50 font-semibold">
+                        Deadline for project
+                      </div>
+                      <div className="text-neutral-500 text-sm">11:59 PM</div>
+                    </div>
+                  </li>
+                </ul>
               </section>
               <section className="flex flex-col gap-4 p-8 bg-neutral-800/50 rounded-lg w-full col-span-2 row-span-1">
                 <h1 className="flex items-center gap-2 text-xl font-semibold mb-2">
@@ -498,7 +534,95 @@ function App() {
                 </ul>
               </section>
               <section className="flex flex-col gap-4 p-8 bg-neutral-800/50 rounded-lg w-full col-span-2 row-span-1">
-                calendar
+                <h1 className="flex items-center gap-2 text-xl font-semibold mb-2">
+                  <Icon icon="tabler:calendar" className="text-2xl" />
+                  <span className="ml-2">Calendar</span>
+                </h1>
+                <div className="w-full h-full">
+                  <div className="flex items-center justify-between mb-6">
+                    <button className="p-4 text-neutral-500 rounded-lg hover:bg-neutral-700/50 transition-all">
+                      <Icon icon="tabler:chevron-left" className="text-2xl" />
+                    </button>
+                    <div className="text-neutral-50 text-lg font-semibold">
+                      November 2023
+                    </div>
+                    <button className="p-4 text-neutral-500 rounded-lg hover:bg-neutral-700/50 transition-all">
+                      <Icon icon="tabler:chevron-right" className="text-2xl" />
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-7 gap-4">
+                    {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                      (day) => (
+                        <div className="flex items-center justify-center text-neutral-500 text-sm">
+                          {day}
+                        </div>
+                      )
+                    )}
+                    {Array(35)
+                      .fill(0)
+                      .map((_, index) =>
+                        (() => {
+                          const date = new Date();
+
+                          const firstDay =
+                            new Date(
+                              date.getFullYear(),
+                              date.getMonth(),
+                              1
+                            ).getDay() - 1;
+
+                          const lastDate = new Date(
+                            date.getFullYear(),
+                            date.getMonth() + 1,
+                            0
+                          ).getDate();
+
+                          const lastDateOfPrevMonth =
+                            new Date(
+                              date.getFullYear(),
+                              date.getMonth(),
+                              0
+                            ).getDate() - 1;
+
+                          const actualIndex =
+                            firstDay > index
+                              ? lastDateOfPrevMonth - firstDay + index + 2
+                              : index - firstDay + 1 > lastDate
+                              ? index - lastDate - firstDay + 1
+                              : index - firstDay + 1;
+
+                          return (
+                            <div
+                              className={`flex items-center flex-col gap-1 relative isolate text-sm ${
+                                firstDay > index ||
+                                index - firstDay + 1 > lastDate
+                                  ? "text-neutral-600"
+                                  : "text-neutral-100"
+                              } ${
+                                actualIndex === date.getDate()
+                                  ? "after:content-[''] after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-10 after:h-10 after:border after:border-teal-500 after:bg-teal-500/10 after:z-[-1] after:rounded-md"
+                                  : ""
+                              }`}
+                            >
+                              <span>{actualIndex}</span>
+                              {(() => {
+                                const randomTrue = Math.random() > 0.7;
+                                return randomTrue &&
+                                  !(
+                                    firstDay > index ||
+                                    index - firstDay + 1 > lastDate
+                                  ) ? (
+                                  <div className="w-3 h-0.5 rounded-full bg-rose-500" />
+                                ) : (
+                                  ""
+                                );
+                              })()}
+                            </div>
+                          );
+                        })()
+                      )}
+                  </div>
+                </div>
               </section>
             </div>
           </div>
