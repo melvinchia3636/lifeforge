@@ -33,7 +33,7 @@ ChartJS.register(
   Filler
 )
 
-function Dashboard(): React.ReactElement {
+function Dashboard(): React.JSX.Element {
   return (
     <section className="flex w-full flex-col overflow-y-auto px-12">
       <div className="mb-8 flex w-full flex-col">
