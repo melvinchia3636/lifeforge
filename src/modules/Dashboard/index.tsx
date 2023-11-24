@@ -8,6 +8,31 @@ import TodaysEvent from './modules/TodaysEvent'
 import Calendar from './modules/Calendar'
 import TodoList from './modules/TodoList'
 
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Filler
+} from 'chart.js'
+
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Filler
+)
+
 function Dashboard(): React.ReactElement {
   return (
     <section className="flex w-full flex-col overflow-y-auto px-12">
