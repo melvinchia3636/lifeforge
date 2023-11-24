@@ -117,7 +117,7 @@ const options2 = {
   }
 }
 
-export default function CodeTime(): React.ReactElement {
+export default function CodeTime(): React.JSX.Element {
   return (
     <section className="col-span-2 flex h-full w-full flex-col gap-4 rounded-lg bg-neutral-800/50 p-6">
       <h1 className="mb-2 flex items-center gap-2 text-xl font-semibold">
