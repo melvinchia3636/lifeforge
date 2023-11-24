@@ -1,12 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@100;200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@100;200;300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-  font-family: "Urbanist", sans-serif;
+  font-family: 'Urbanist', sans-serif;
   scrollbar-color: rgba(64, 64, 64, 1) rgba(38, 38, 38, 1);
+  scrollbar-width: thin;
+}
+
+body {
+  background-color: rgba(38, 38, 38, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+body *:not(input) {
+  @apply transition-all;
 }
 
 .stroke-\[2px\] > path {
