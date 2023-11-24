@@ -4,13 +4,33 @@ import React from 'react'
 
 import { BrowserRouter } from 'react-router-dom'
 import AppRouter from './Router'
+import GlobalStateProvider from './providers/GlobalStateProvider'
+import { ToastContainer } from 'react-toastify'
+import AuthProvider from './providers/AuthProvider'
 
 function App(): React.ReactElement {
   return (
     <BrowserRouter>
-      <div className="flex h-screen w-full bg-neutral-900 text-neutral-50">
-        <AppRouter />
-      </div>
+      <GlobalStateProvider>
+        <AuthProvider>
+          <div className="relative flex h-screen w-full bg-neutral-900 text-neutral-50">
+            <AppRouter />
+          </div>
+          <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            className="w-max"
+          />
+        </AuthProvider>
+      </GlobalStateProvider>
     </BrowserRouter>
   )
 }
