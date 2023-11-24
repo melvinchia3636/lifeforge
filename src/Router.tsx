@@ -4,6 +4,7 @@ import Dashboard from './modules/Dashboard'
 import Auth from './components/Auth'
 import MainApplication from './MainApplication'
 import { AuthContext } from './providers/AuthProvider'
+import TodoList from './modules/TodoList'
 
 function AppRouter(): React.JSX.Element {
   const { auth, authLoading } = useContext(AuthContext)
@@ -11,7 +12,6 @@ function AppRouter(): React.JSX.Element {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(authLoading)
     if (!authLoading) {
       if (!auth && location.pathname !== '/auth') {
         navigate('/auth')
@@ -29,6 +29,7 @@ function AppRouter(): React.JSX.Element {
     <Routes>
       <Route path="/" element={<MainApplication />}>
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="todo-list" element={<TodoList />} />
       </Route>
       <Route path="/auth" element={<Auth />} />
     </Routes>
