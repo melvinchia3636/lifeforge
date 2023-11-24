@@ -47,7 +47,7 @@ export default function AuthProvider({
   const [quota, setQuota] = useState(5)
   const [authLoading, setAuthLoading] = useState(true)
   const {
-    pocketbase: { pocketbase, loading }
+    pocketbase: { pocketbase, loading, error }
   } = useContext(GlobalStateContext)
 
   function updateQuota(): number {
@@ -100,7 +100,7 @@ export default function AuthProvider({
     email: string
     password: string
   }): Promise<string> {
-    if (!loading && pocketbase !== null) {
+    if (!loading && pocketbase !== null && error === null) {
       try {
         await pocketbase
           .collection('users')

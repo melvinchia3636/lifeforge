@@ -28,6 +28,7 @@ export default function usePocketbase(): {
         pocketbase.current = new Pocketbase(
           import.meta.env.VITE_POCKETBASE_ENDPOINT as string
         )
+        await pocketbase.current.collection('users').getList(1, 1)
         setState(s => ({ ...s, loading: false }))
       } catch (error) {
         setState(s => ({ ...s, error, loading: false }))
