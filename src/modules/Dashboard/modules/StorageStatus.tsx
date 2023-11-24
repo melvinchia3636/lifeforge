@@ -57,7 +57,7 @@ const options = {
   }
 }
 
-export default function StorageStatus(): React.ReactElement {
+export default function StorageStatus(): React.JSX.Element {
   return (
     <section className="col-span-1 flex w-full flex-col gap-4 rounded-lg bg-neutral-800/50 p-6">
       <h1 className="mb-2 flex items-center gap-2 text-xl font-semibold">

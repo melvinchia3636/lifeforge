@@ -26,7 +26,7 @@ export default function GlobalStateProvider({
   children
 }: {
   children: React.ReactNode
-}): React.ReactElement {
+}): React.JSX.Element {
   const [navbarExpanded, setNavbarExpanded] = useState(true)
   const { pocketbase, loading, error } = usePocketbase()
 

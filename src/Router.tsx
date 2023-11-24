@@ -5,7 +5,7 @@ import Auth from './components/Auth'
 import MainApplication from './MainApplication'
 import { AuthContext } from './providers/AuthProvider'
 
-function AppRouter(): React.ReactElement {
+function AppRouter(): React.JSX.Element {
   const { auth, authLoading } = useContext(AuthContext)
   const location = useLocation()
   const navigate = useNavigate()
