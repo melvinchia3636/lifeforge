@@ -1,6 +1,8 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import React, { useContext } from 'react'
 import { GlobalStateContext } from '../../../providers/GlobalStateProvider'
+import { useLocation } from 'react-router'
+import { Link } from 'react-router-dom'
 
 interface SidebarItemProps {
   icon: string
@@ -14,18 +16,27 @@ function SidebarItem({
   subsection
 }: SidebarItemProps): React.JSX.Element {
   const { sidebarExpanded } = useContext(GlobalStateContext)
+  const location = useLocation()
+
   return (
     <>
       <li
         className={`relative flex items-center gap-6 px-4 font-medium text-neutral-100 transition-all ${
-          false
+          location.pathname
+            .slice(1)
+            .startsWith(name.toLowerCase().replace(' ', '-'))
             ? "after:absolute after:right-0 after:top-1/2 after:h-8 after:w-1 after:-translate-y-1/2 after:rounded-full after:bg-teal-500 after:content-['']"
             : 'text-neutral-400'
         }`}
       >
-        <div
+        <Link
+          to={`/${name.toLowerCase().replace(' ', '-')}`}
           className={`flex w-full items-center gap-6 whitespace-nowrap rounded-lg p-4 hover:bg-neutral-800 ${
-            false ? 'bg-neutral-800' : ''
+            location.pathname
+              .slice(1)
+              .startsWith(name.toLowerCase().replace(' ', '-'))
+              ? 'bg-neutral-800'
+              : ''
           }`}
         >
           <Icon icon={icon} className="h-6 w-6 shrink-0" />
@@ -40,7 +51,7 @@ function SidebarItem({
               )}
             </div>
           )}
-        </div>
+        </Link>
       </li>
       {subsection !== undefined && (
         <ul className="flex hidden flex-col gap-2">

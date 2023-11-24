@@ -9,7 +9,7 @@ const SIDEBAR_ITEMS: ISidebarItem[] = [
   { type: 'item', name: 'Dashboard', icon: 'tabler:layout-dashboard' },
   { type: 'divider' },
   { type: 'title', name: 'Productivity' },
-  { type: 'item', name: 'Todo', icon: 'tabler:list-check' },
+  { type: 'item', name: 'Todo List', icon: 'tabler:list-check' },
   { type: 'item', name: 'Calendar', icon: 'tabler:calendar' },
   { type: 'divider' },
   { type: 'title', name: 'Development' },
