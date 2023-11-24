@@ -8,7 +8,7 @@ import GlobalStateProvider from './providers/GlobalStateProvider'
 import { ToastContainer } from 'react-toastify'
 import AuthProvider from './providers/AuthProvider'
 
-function App(): React.ReactElement {
+function App(): React.JSX.Element {
   return (
     <BrowserRouter>
       <GlobalStateProvider>

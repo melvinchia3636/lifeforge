@@ -5,7 +5,7 @@ import { AuthContext } from '../providers/AuthProvider'
 import { Menu, Transition } from '@headlessui/react'
 import { toast } from 'react-toastify'
 
-export default function Header(): React.ReactElement {
+export default function Header(): React.JSX.Element {
   const { sidebarExpanded, toggleSidebar } = useContext(GlobalStateContext)
   const { userData, getAvatarURL, logout } = useContext(AuthContext)
 

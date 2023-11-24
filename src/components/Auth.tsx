@@ -5,7 +5,7 @@ import { AuthContext } from '../providers/AuthProvider'
 import { toast } from 'react-toastify'
 import { AUTH_ERROR_MESSAGES } from '../constants/auth'
 
-function Auth(): React.ReactElement {
+function Auth(): React.JSX.Element {
   const [emailOrUsername, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
