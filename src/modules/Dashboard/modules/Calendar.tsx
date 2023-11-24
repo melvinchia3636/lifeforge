@@ -53,6 +53,7 @@ export default function Calendar(): React.ReactElement {
                     : index - firstDay + 1
                 return (
                   <div
+                    key={index}
                     className={`relative isolate flex flex-col items-center gap-1 text-sm ${
                       firstDay > index || index - firstDay + 1 > lastDate
                         ? 'text-neutral-600'

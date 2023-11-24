@@ -1,16 +1,53 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { Icon } from '@iconify/react'
-import React, { useState } from 'react'
+import React, { type FormEvent, useContext, useState } from 'react'
+import { AuthContext } from '../providers/AuthProvider'
+import { toast } from 'react-toastify'
+import { AUTH_ERROR_MESSAGES } from '../constants/auth'
 
 function Auth(): React.ReactElement {
-  const [email, setEmail] = useState('')
+  const [emailOrUsername, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const {
+    auth,
+    authenticate,
+    loginQuota: { quota, dismissQuota }
+  } = useContext(AuthContext)
 
-  function updateEmail(event: React.ChangeEvent<HTMLInputElement>): void {
+  function updateEmailOrUsername(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
     setEmail(event.target.value)
   }
 
   function updatePassword(event: React.ChangeEvent<HTMLInputElement>): void {
     setPassword(event.target.value)
+  }
+
+  function signIn(event: FormEvent<HTMLFormElement>): void {
+    event.preventDefault()
+
+    if (quota === 0) {
+      dismissQuota()
+      return
+    }
+    setLoading(true)
+    authenticate({ email: emailOrUsername, password })
+      .then(res => {
+        if (!res.startsWith('success')) {
+          toast.error(res)
+          if (res === AUTH_ERROR_MESSAGES.INVALID_CREDENTIALS) {
+            dismissQuota()
+          }
+        } else {
+          toast.success('Welcome back, ' + res.split(' ').slice(1).join(' '))
+        }
+        setLoading(false)
+      })
+      .catch(() => {
+        toast.error(AUTH_ERROR_MESSAGES.UNKNOWN_ERROR)
+      })
   }
 
   return (
@@ -26,27 +63,29 @@ function Auth(): React.ReactElement {
         <p className="mt-4 text-xl text-neutral-300">
           Sign in to continue tracking your life.
         </p>
-        <form className="mt-12 flex w-full max-w-md flex-col gap-8">
+        <form
+          onSubmit={signIn}
+          className="mt-12 flex w-full max-w-md flex-col gap-8"
+        >
           <div className="group relative flex items-center gap-1 rounded-t-lg border-b-2 border-neutral-500 bg-neutral-800 focus-within:border-teal-500">
             <Icon
-              icon="tabler:mail"
+              icon="tabler:user"
               className="ml-6 h-6 w-6 shrink-0 text-neutral-500 group-focus-within:text-teal-500"
             />
 
             <div className="flex w-full items-center gap-2">
               <span
                 className={`pointer-events-none absolute left-[4.2rem] font-medium tracking-wide text-neutral-500 group-focus-within:text-teal-500 ${
-                  email.length === 0
+                  emailOrUsername.length === 0
                     ? 'top-1/2 -translate-y-1/2 group-focus-within:top-6 group-focus-within:text-[14px]'
                     : 'top-6 -translate-y-1/2 text-[14px]'
                 }`}
               >
-                Email
+                Username or Email
               </span>
               <input
-                type="email"
-                value={email}
-                onChange={updateEmail}
+                value={emailOrUsername}
+                onChange={updateEmailOrUsername}
                 placeholder="someone@example.com"
                 className="mt-6 h-8 w-full rounded-lg bg-transparent p-6 pl-4 tracking-widest placeholder:text-transparent focus:outline-none focus:placeholder:text-neutral-500"
               />
@@ -77,12 +116,24 @@ function Auth(): React.ReactElement {
               />
             </div>
           </div>
-          <button
-            disabled={email.length === 0 || password.length === 0}
-            className="mt-8 rounded-lg bg-teal-500 p-6 font-semibold uppercase tracking-widest transition-all hover:bg-teal-600 disabled:cursor-not-allowed disabled:bg-teal-900 disabled:text-neutral-400"
-          >
-            Sign In
-          </button>
+          <div className="mt-6 flex flex-col gap-6">
+            <button
+              type="submit"
+              disabled={
+                emailOrUsername.length === 0 ||
+                password.length === 0 ||
+                loading ||
+                auth
+              }
+              className="flex h-[4.6rem] items-center justify-center rounded-lg bg-teal-500 p-6 font-semibold uppercase tracking-widest transition-all hover:bg-teal-600 disabled:cursor-not-allowed disabled:bg-teal-900 disabled:text-neutral-400"
+            >
+              {loading ? <Icon icon="svg-spinners:180-ring" /> : 'Sign In'}
+            </button>
+            <button className="flex items-center justify-center gap-3 rounded-lg bg-neutral-800 p-6 font-semibold uppercase tracking-widest transition-all hover:bg-neutral-700">
+              <Icon icon="tabler:brand-google" className="text-2xl" />
+              Sign In with Google
+            </button>
+          </div>
         </form>
       </section>
       <section className="relative flex h-full w-1/2">

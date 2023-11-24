@@ -1,8 +1,23 @@
 import React, { createContext, useState } from 'react'
+import usePocketbase from '../hooks/usePocketbase'
+import type Pocketbase from 'pocketbase'
 
-const GLOBAL_STATE = {
+const GLOBAL_STATE: {
+  sidebarExpanded: boolean
+  toggleSidebar: () => void
+  pocketbase: {
+    pocketbase: Pocketbase | null
+    loading: boolean
+    error: any
+  }
+} = {
   sidebarExpanded: true,
-  toggleSidebar: () => {}
+  toggleSidebar: () => {},
+  pocketbase: {
+    pocketbase: null,
+    loading: false,
+    error: null
+  }
 }
 
 export const GlobalStateContext = createContext(GLOBAL_STATE)
@@ -13,6 +28,7 @@ export default function GlobalStateProvider({
   children: React.ReactNode
 }): React.ReactElement {
   const [navbarExpanded, setNavbarExpanded] = useState(true)
+  const { pocketbase, loading, error } = usePocketbase()
 
   function toggleNavbarExpanded(): void {
     setNavbarExpanded(!navbarExpanded)
@@ -22,7 +38,12 @@ export default function GlobalStateProvider({
     <GlobalStateContext.Provider
       value={{
         sidebarExpanded: navbarExpanded,
-        toggleSidebar: toggleNavbarExpanded
+        toggleSidebar: toggleNavbarExpanded,
+        pocketbase: {
+          pocketbase,
+          loading,
+          error
+        }
       }}
     >
       {children}
