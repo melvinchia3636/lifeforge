@@ -8,7 +8,10 @@ import SidebarTitle from '../../components/Sidebar/components/SidebarTitle'
 function Calendar(): React.JSX.Element {
   return (
     <section className="flex w-full flex-col overflow-y-auto px-12">
-      <ModuleHeader title="Calendar" />
+      <ModuleHeader
+        title="Calendar"
+        desc="Make sure you don't miss important event."
+      />
       <div className="mb-12 mt-8 flex min-h-0 w-full flex-1">
         <aside className="flex h-full flex-col gap-8">
           <section className="flex w-full flex-col gap-4 rounded-lg bg-neutral-800/50 p-8">
