@@ -16,14 +16,11 @@ const SIDEBAR_ITEMS: ISidebarItem[] = [
   {
     type: 'item',
     name: 'Projects',
-    icon: 'tabler:clipboard',
-    subsection: [
-      ['Kanban', 'tabler:layout-columns'],
-      ['List', 'tabler:layout-list'],
-      ['Gantt', 'tabler:arrow-autofit-content']
-    ]
+    icon: 'tabler:clipboard'
   },
   { type: 'item', name: 'Idea Box', icon: 'tabler:bulb' },
+  { type: 'item', name: 'Snippets', icon: 'tabler:code' },
+  { type: 'item', name: 'Resources', icon: 'tabler:book' },
   { type: 'item', name: 'Code Time', icon: 'tabler:code' },
   { type: 'item', name: 'Github Stats', icon: 'tabler:brand-github' },
   { type: 'divider' },

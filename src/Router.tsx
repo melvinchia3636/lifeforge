@@ -8,6 +8,9 @@ import { AuthContext } from './providers/AuthProvider'
 import TodoList from './modules/TodoList'
 import Calendar from './modules/Calendar'
 import Projects from './modules/Projects'
+import Kanban from './modules/Projects/components/Kanban'
+import NotFound from './components/NotFound'
+import IdeaBox from './modules/IdeaBox'
 
 function AppRouter(): React.JSX.Element {
   const { auth, authLoading } = useContext(AuthContext)
@@ -44,8 +47,11 @@ function AppRouter(): React.JSX.Element {
         <Route path="todo-list" element={<TodoList />} />
         <Route path="calendar" element={<Calendar />} />
         <Route path="projects" element={<Projects />} />
+        <Route path="projects/:id" element={<Kanban />} />
+        <Route path="idea-box" element={<IdeaBox />} />
       </Route>
       <Route path="/auth" element={<Auth />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
