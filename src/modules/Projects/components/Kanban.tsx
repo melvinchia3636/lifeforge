@@ -1,20 +1,27 @@
 import React from 'react'
-import ModuleHeader from '../../../components/ModuleHeader'
 import { Icon } from '@iconify/react/dist/iconify.js'
+import { Link } from 'react-router-dom'
 
-function Kanban(): JSX.Element {
+function Kanban(): React.JSX.Element {
   return (
-    <>
+    <section className="flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-y-auto pl-12">
       <div className="flex flex-col gap-1 pr-12">
-        <span className="mb-4 text-lg font-medium text-neutral-500">
-          Projects / <span className="text-neutral-200">LifeForge.</span>
-        </span>
+        <Link
+          to="/projects"
+          className="mb-2 flex w-min items-center gap-2 rounded-lg p-2 pr-4 text-neutral-500 hover:text-neutral-100"
+        >
+          <Icon icon="tabler:chevron-left" className="text-xl" />
+          <span className="whitespace-nowrap text-lg font-medium">Go back</span>
+        </Link>
         <div className="flex items-center justify-between">
           <h1 className="flex items-center gap-4 text-3xl font-semibold text-neutral-50">
             <div className="rounded-lg bg-neutral-800 p-3">
               <Icon icon="tabler:hammer" className="text-3xl" />
             </div>
             LifeForge.
+            <div className="ml-2 rounded-full border-2 border-yellow-500 bg-yellow-500/10 px-3 py-1.5 text-xs font-medium uppercase tracking-widest text-yellow-500">
+              In progress
+            </div>
           </h1>
           <div className="flex gap-2 rounded-lg p-2">
             {[
@@ -88,7 +95,7 @@ function Kanban(): JSX.Element {
           </div>
         ))}
       </div>
-    </>
+    </section>
   )
 }
 

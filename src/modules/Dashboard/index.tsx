@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Icon } from '@iconify/react'
 
 import StorageStatus from './modules/StorageStatus'
@@ -21,6 +21,7 @@ import {
   Filler
 } from 'chart.js'
 import ModuleHeader from '../../components/ModuleHeader'
+import { AuthContext } from '../../providers/AuthProvider'
 
 ChartJS.register(
   ArcElement,
@@ -35,10 +36,20 @@ ChartJS.register(
 )
 
 function Dashboard(): React.JSX.Element {
+  const { userData } = useContext(AuthContext)
+
   return (
     <section className="flex w-full flex-col overflow-y-auto px-12">
       <div className="mb-8 flex w-full flex-col">
-        <ModuleHeader title="Dashboard" />
+        <ModuleHeader
+          title="Dashboard"
+          desc={
+            <>
+              Good to see you here,{' '}
+              <span className="text-teal-500">{userData.name}</span>!
+            </>
+          }
+        />
         <div className="mt-6 grid w-full grid-cols-4 grid-rows-3 gap-6">
           <StorageStatus />
           <CodeTime />
