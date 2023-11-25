@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/indent */
 import React from 'react'
 import ModuleHeader from '../../components/ModuleHeader'
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { Icon } from '@iconify/react'
 import SidebarTitle from '../../components/Sidebar/components/SidebarTitle'
 
 function Calendar(): React.JSX.Element {

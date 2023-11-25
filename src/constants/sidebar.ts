@@ -19,7 +19,7 @@ const SIDEBAR_ITEMS: ISidebarItem[] = [
     icon: 'tabler:clipboard'
   },
   { type: 'item', name: 'Idea Box', icon: 'tabler:bulb' },
-  { type: 'item', name: 'Snippets', icon: 'tabler:code' },
+  { type: 'item', name: 'Snippets', icon: 'tabler:code-dots' },
   { type: 'item', name: 'Resources', icon: 'tabler:book' },
   { type: 'item', name: 'Code Time', icon: 'tabler:code' },
   { type: 'item', name: 'Github Stats', icon: 'tabler:brand-github' },

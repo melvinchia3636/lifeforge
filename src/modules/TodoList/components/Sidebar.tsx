@@ -1,7 +1,7 @@
 import React from 'react'
 import SidebarDivider from '../../../components/Sidebar/components/SidebarDivider'
 import SidebarTitle from '../../../components/Sidebar/components/SidebarTitle'
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { Icon } from '@iconify/react'
 
 function Sidebar(): React.JSX.Element {
   return (
