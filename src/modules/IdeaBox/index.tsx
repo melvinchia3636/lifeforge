@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ModuleHeader from '../../components/ModuleHeader'
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { Icon } from '@iconify/react'
 import { faker } from '@faker-js/faker'
 import { Link } from 'react-router-dom'
 
@@ -15,8 +15,9 @@ function IdeaBox(): React.JSX.Element {
       })
       .catch(() => {})
   }, [])
+
   return (
-    <section className="flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto px-12">
+    <section className="flex h-full min-h-0 w-full flex-1 flex-col px-12">
       <ModuleHeader
         title="Idea Box"
         desc="Sometimes you will randomly stumble upon a great idea."
@@ -30,7 +31,7 @@ function IdeaBox(): React.JSX.Element {
             className="w-full bg-transparent text-neutral-100 placeholder:text-neutral-500 focus:outline-none"
           />
         </div>
-        <div className="mt-6 grid w-full flex-1 grid-cols-4 gap-6 pb-12">
+        <div className="mt-6 grid w-full flex-1 grid-cols-4 gap-6 overflow-y-auto pb-12">
           {Array(9)
             .fill(0)
             .map((_, index) => (

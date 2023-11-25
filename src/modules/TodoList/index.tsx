@@ -1,4 +1,4 @@
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { Icon } from '@iconify/react'
 import React from 'react'
 import Sidebar from './components/Sidebar'
 import ModuleHeader from '../../components/ModuleHeader'
@@ -18,11 +18,11 @@ function TodoList(): React.JSX.Element {
               All Tasks <span className="text-base text-neutral-400">(10)</span>
             </h1>
           </div>
-          <div className="my-8 flex w-full items-center gap-4 rounded-lg bg-neutral-800/50 p-6">
+          <div className="my-8 flex w-full items-center gap-4 rounded-lg bg-neutral-800/50 p-4">
             <Icon icon="tabler:search" className="h-5 w-5 text-neutral-500" />
             <input
               type="text"
-              placeholder="Search tasks ..."
+              placeholder="Search projects ..."
               className="w-full bg-transparent text-neutral-100 placeholder:text-neutral-500 focus:outline-none"
             />
           </div>
@@ -33,7 +33,7 @@ function TodoList(): React.JSX.Element {
                 <span className="ml-1">Add New Task</span>
               </button>
             </li>
-            <li className="flex items-center justify-between gap-4 rounded-lg border-l-4 border-indigo-500 bg-neutral-800 p-4 px-6">
+            <li className="flex items-center justify-between gap-4 rounded-lg border-l-4 border-indigo-500 bg-neutral-800/50 p-4 px-6">
               <div className="flex flex-col gap-1">
                 <div className="font-semibold text-neutral-50">
                   Buy groceries
@@ -44,7 +44,7 @@ function TodoList(): React.JSX.Element {
               </div>
               <button className="h-6 w-6 rounded-full border-2 border-neutral-500 transition-all hover:border-orange-500" />
             </li>
-            <li className="flex items-center justify-between gap-4 rounded-lg border-l-4 border-orange-500 bg-neutral-800 p-4 px-6">
+            <li className="flex items-center justify-between gap-4 rounded-lg border-l-4 border-orange-500 bg-neutral-800/50 p-4 px-6">
               <div className="flex flex-col gap-1">
                 <div className="font-semibold text-neutral-50">Do homework</div>
                 <div className="text-sm text-neutral-500">
@@ -53,7 +53,7 @@ function TodoList(): React.JSX.Element {
               </div>
               <button className="h-6 w-6 rounded-full border-2 border-neutral-500 transition-all hover:border-orange-500" />
             </li>
-            <li className="flex items-center justify-between gap-4 rounded-lg border-l-4 border-orange-500 bg-neutral-800 p-4 px-6">
+            <li className="flex items-center justify-between gap-4 rounded-lg border-l-4 border-orange-500 bg-neutral-800/50 p-4 px-6">
               <div className="flex flex-col gap-1">
                 <div className="font-semibold text-neutral-50">
                   Start doing revision for SPM Sejarah
