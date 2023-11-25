@@ -23,6 +23,7 @@ const SIDEBAR_ITEMS: ISidebarItem[] = [
       ['Gantt', 'tabler:arrow-autofit-content']
     ]
   },
+  { type: 'item', name: 'Idea Box', icon: 'tabler:bulb' },
   { type: 'item', name: 'Code Time', icon: 'tabler:code' },
   { type: 'item', name: 'Github Stats', icon: 'tabler:brand-github' },
   { type: 'divider' },

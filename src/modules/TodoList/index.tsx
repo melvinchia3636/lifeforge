@@ -1,97 +1,14 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import React from 'react'
-import SidebarTitle from '../../components/Sidebar/components/SidebarTitle'
-import SidebarItem from '../../components/Sidebar/components/SidebarItem'
-import SidebarDivider from '../../components/Sidebar/components/SidebarDivider'
+import Sidebar from './components/Sidebar'
+import ModuleHeader from '../../components/ModuleHeader'
 
 function TodoList(): React.JSX.Element {
   return (
     <section className="flex h-full min-h-0 w-full flex-1 flex-col px-12">
-      <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-semibold text-neutral-50">Todo List</h1>
-        <button className="rounded-lg p-4 text-neutral-500 transition-all hover:bg-neutral-800 hover:text-neutral-100">
-          <Icon icon="tabler:dots-vertical" className="text-2xl" />
-        </button>
-      </div>
+      <ModuleHeader title="Todo List" />
       <div className="mb-12 mt-8 flex min-h-0 w-full flex-1">
-        <aside className="h-full w-1/4 overflow-y-scroll rounded-lg bg-neutral-800/50 py-4">
-          <ul className="flex flex-col overflow-y-hidden  hover:overflow-y-scroll">
-            <SidebarTitle name="tasks" />
-            {[
-              ['tabler:article', 'All'],
-              ['tabler:calendar-exclamation', 'Today'],
-              ['tabler:calendar-up', 'Upcoming'],
-              ['tabler:calendar-x', 'Overdue'],
-              ['tabler:calendar-check', 'Completed']
-            ].map(([icon, name], index) => (
-              <li
-                key={index}
-                className="relative flex items-center gap-6 px-4 font-medium text-neutral-400 transition-all"
-              >
-                <div className="flex w-full items-center gap-6 whitespace-nowrap rounded-lg p-4 hover:bg-neutral-800">
-                  <Icon icon={icon} className="h-6 w-6 shrink-0" />
-                  <div className="flex w-full items-center justify-between">
-                    {name}
-                  </div>
-                  <span className="text-sm">
-                    {Math.floor(Math.random() * 10)}
-                  </span>
-                </div>
-              </li>
-            ))}
-            <SidebarDivider />
-            <SidebarTitle name="categories" />
-            {[
-              ['tabler:code', 'Code', 'bg-green-500'],
-              ['tabler:book', 'Study', 'bg-blue-500'],
-              ['tabler:clipboard-list', 'Work', 'bg-yellow-500'],
-              ['tabler:heart', 'Health', 'bg-red-500'],
-              ['tabler:shopping-cart', 'Shopping', 'bg-purple-500'],
-              ['tabler:coffee', 'Leisure', 'bg-pink-500']
-            ].map(([icon, name, color], index) => (
-              <li
-                key={index}
-                className="relative flex items-center gap-6 px-4 font-medium text-neutral-400 transition-all"
-              >
-                <div className="flex w-full items-center gap-6 whitespace-nowrap rounded-lg p-4 hover:bg-neutral-800">
-                  <span className={`block h-8 w-1.5 rounded-full ${color}`} />
-                  <Icon icon={icon} className="h-6 w-6 shrink-0" />
-                  <div className="flex w-full items-center justify-between">
-                    {name}
-                  </div>
-                  <span className="text-sm">
-                    {Math.floor(Math.random() * 10)}
-                  </span>
-                </div>
-              </li>
-            ))}
-            <SidebarDivider />
-            <SidebarTitle name="Tags" />
-            {[
-              ['Design', 'bg-green-500'],
-              ['Frontend', 'bg-blue-500'],
-              ['Backend', 'bg-yellow-500'],
-              ['Marketing', 'bg-red-500'],
-              ['Sales', 'bg-purple-500'],
-              ['Support', 'bg-pink-500']
-            ].map(([name, color], index) => (
-              <li
-                key={index}
-                className="relative flex items-center gap-6 px-4 font-medium text-neutral-400 transition-all"
-              >
-                <div className="flex w-full items-center gap-6 whitespace-nowrap rounded-lg p-4 hover:bg-neutral-800">
-                  <span className={`block h-1.5 w-1.5 rounded-full ${color}`} />
-                  <div className="flex w-full items-center justify-between">
-                    {name}
-                  </div>
-                  <span className="text-sm">
-                    {Math.floor(Math.random() * 10)}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </aside>
+        <Sidebar />
         <div className="ml-12 h-full flex-1">
           <div className="flex items-center justify-between">
             <h1 className="text-4xl font-semibold text-neutral-50">

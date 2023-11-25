@@ -20,6 +20,7 @@ import {
   Title,
   Filler
 } from 'chart.js'
+import ModuleHeader from '../../components/ModuleHeader'
 
 ChartJS.register(
   ArcElement,
@@ -37,12 +38,7 @@ function Dashboard(): React.JSX.Element {
   return (
     <section className="flex w-full flex-col overflow-y-auto px-12">
       <div className="mb-8 flex w-full flex-col">
-        <div className="flex items-center justify-between">
-          <h1 className="text-4xl font-semibold text-neutral-50">Dashboard</h1>
-          <button className="rounded-lg p-4 text-neutral-500 transition-all hover:bg-neutral-800 hover:text-neutral-100">
-            <Icon icon="tabler:dots-vertical" className="text-2xl" />
-          </button>
-        </div>
+        <ModuleHeader title="Dashboard" />
         <div className="mt-6 grid w-full grid-cols-4 grid-rows-3 gap-6">
           <StorageStatus />
           <CodeTime />
