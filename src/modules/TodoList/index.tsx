@@ -6,7 +6,10 @@ import ModuleHeader from '../../components/ModuleHeader'
 function TodoList(): React.JSX.Element {
   return (
     <section className="flex h-full min-h-0 w-full flex-1 flex-col px-12">
-      <ModuleHeader title="Todo List" />
+      <ModuleHeader
+        title="Todo List"
+        desc="Human brain is not designed to remember everything."
+      />
       <div className="mb-12 mt-8 flex min-h-0 w-full flex-1">
         <Sidebar />
         <div className="ml-12 h-full flex-1">
