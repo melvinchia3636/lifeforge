@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable multiline-ternary */
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { GlobalStateContext } from '../../../providers/GlobalStateProvider'
 import SidebarItem from './SidebarItem'
 import SidebarTitle from './SidebarTitle'
@@ -11,7 +11,7 @@ function SidebarItems(): React.JSX.Element {
   const { sidebarExpanded } = useContext(GlobalStateContext)
 
   return (
-    <ul className="mt-6 flex flex-col overflow-y-hidden pb-6 hover:overflow-y-scroll">
+    <ul className="mt-6 flex flex-col gap-1 overflow-y-hidden pb-6 hover:overflow-y-scroll">
       {SIDEBAR_ITEMS.map(({ type, name, icon, subsection }, index) => {
         switch (type) {
           case 'item':

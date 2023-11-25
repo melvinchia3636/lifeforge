@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
 import Column from 'react-columns'
 import { faker } from '@faker-js/faker'
