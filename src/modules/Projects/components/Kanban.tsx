@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
 
 function Kanban(): React.JSX.Element {
@@ -19,7 +19,7 @@ function Kanban(): React.JSX.Element {
               <Icon icon="tabler:hammer" className="text-3xl" />
             </div>
             LifeForge.
-            <div className="ml-2 rounded-full border-2 border-yellow-500 bg-yellow-500/10 px-3 py-1.5 text-xs font-medium uppercase tracking-widest text-yellow-500">
+            <div className="ml-2 rounded-full bg-yellow-500/10 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-yellow-500">
               In progress
             </div>
           </h1>

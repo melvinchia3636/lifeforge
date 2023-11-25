@@ -1,4 +1,4 @@
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { Icon } from '@iconify/react'
 import React, { useContext, useState } from 'react'
 import { GlobalStateContext } from '../../../providers/GlobalStateProvider'
 import { useLocation } from 'react-router'
