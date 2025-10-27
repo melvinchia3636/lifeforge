@@ -52,3 +52,6 @@
 [submodule "apps/todoList"]
 	path = apps/todoList
 	url = https://github.com/lifeforge-app/lifeforge-module-todoList.git
+[submodule "apps/guitarTuner"]
+	path = apps/guitarTuner
+	url = https://github.com/lifeforge-app/lifeforge-module-guitarTuner.git
