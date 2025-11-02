@@ -45,7 +45,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "react-dom": "19.2.0",
+    "react-dom": "^19.2.0",
     "react-dropzone": "^14.3.8",
     "react-error-boundary": "^6.0.0",
     "react-grid-layout": "^1.5.2",
