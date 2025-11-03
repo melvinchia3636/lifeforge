@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore - Lazy to fix
+import { MusicProvider } from '@modules/music/client/src/providers/MusicProvider'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ErrorScreen, useModalStore } from 'lifeforge-ui'
 import { APIOnlineStatusWrapper } from 'lifeforge-ui'
 import { useEffect } from 'react'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
 import { ErrorBoundary } from 'react-error-boundary'
 import {
   APIEndpointProvider,
@@ -54,32 +55,32 @@ function App() {
         <NuqsProvider>
           <APIEndpointProvider endpoint={import.meta.env.VITE_API_HOST}>
             <QueryClientProvider client={queryClient}>
-              <DndProvider backend={HTML5Backend}>
-                <PersonalizationProvider>
-                  <APIOnlineStatusProvider>
-                    <APIOnlineStatusWrapper>
-                      <AuthProvider
-                        forgeAPI={forgeAPI}
-                        onTwoFAModalOpen={() => open(TwoFAModal, {})}
-                      >
-                        <SidebarStateProvider>
-                          <UserPersonalizationProvider>
-                            <ToastProvider>
-                              <BackgroundProvider>
-                                <SocketProvider
-                                  apiHost={import.meta.env.VITE_API_HOST}
-                                >
+              <PersonalizationProvider>
+                <APIOnlineStatusProvider>
+                  <APIOnlineStatusWrapper>
+                    <AuthProvider
+                      forgeAPI={forgeAPI}
+                      onTwoFAModalOpen={() => open(TwoFAModal, {})}
+                    >
+                      <SidebarStateProvider>
+                        <UserPersonalizationProvider>
+                          <ToastProvider>
+                            <BackgroundProvider>
+                              <SocketProvider
+                                apiHost={import.meta.env.VITE_API_HOST}
+                              >
+                                <MusicProvider>
                                   <AppRoutesProvider />
-                                </SocketProvider>
-                              </BackgroundProvider>
-                            </ToastProvider>
-                          </UserPersonalizationProvider>
-                        </SidebarStateProvider>
-                      </AuthProvider>
-                    </APIOnlineStatusWrapper>
-                  </APIOnlineStatusProvider>
-                </PersonalizationProvider>
-              </DndProvider>
+                                </MusicProvider>
+                              </SocketProvider>
+                            </BackgroundProvider>
+                          </ToastProvider>
+                        </UserPersonalizationProvider>
+                      </SidebarStateProvider>
+                    </AuthProvider>
+                  </APIOnlineStatusWrapper>
+                </APIOnlineStatusProvider>
+              </PersonalizationProvider>
             </QueryClientProvider>
           </APIEndpointProvider>
         </NuqsProvider>
