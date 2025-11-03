@@ -171,6 +171,7 @@
         "react-activity-calendar": "^2.7.14",
         "react-chartjs-2": "^5.3.0",
         "react-i18next": "^15.1.1",
+        "react-router": "^7.9.5",
         "react-tooltip": "^5.30.0",
         "shared": "workspace:*",
         "tinycolor2": "^1.6.0",
