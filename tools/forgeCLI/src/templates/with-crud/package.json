@@ -1,7 +1,7 @@
 {
     "name": "{{kebab moduleName.en}}",
     "version": "0.0.0",
-    "description": "{{moduleDesc.en}}",
+    "description": "Nice",
     "dependencies": {
         "@iconify/react": "^6.0.2",
         "@tanstack/react-query": "^5.90.2",
