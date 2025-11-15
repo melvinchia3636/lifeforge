@@ -1,5 +1,4 @@
-import flattenSchemas from '@functions/utils/flattenSchema'
-
+import flattenSchemas from '@functions/utils/flattenSchema';
 export const SCHEMAS = {
   user: (await import('@lib/user/schema')).default,
   todo_list: (await import('@lib/todoList/server/schema')).default,
