@@ -10,7 +10,7 @@ import { usePromiseLoading } from 'shared'
 import type { ZodType } from 'zod'
 import type { StoreApi, UseBoundStore } from 'zustand'
 
-import { Button } from '../../../../components/buttons'
+import { Button } from '../../../buttons'
 import ModalHeader from '../../core/components/ModalHeader'
 import FormInputs from './components/FormInputs'
 import SubmitButton from './components/SubmitButton'
