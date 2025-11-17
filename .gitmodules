@@ -55,3 +55,6 @@
 [submodule "apps/guitarTuner"]
 	path = apps/guitarTuner
 	url = https://github.com/lifeforge-app/lifeforge-module-guitarTuner.git
+[submodule "apps/apiEndpointExplorer"]
+	path = apps/apiEndpointExplorer
+	url = https://github.com/lifeforge-app/lifeforge-module-apiEndpointExplorer.git
