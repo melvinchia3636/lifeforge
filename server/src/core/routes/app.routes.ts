@@ -1,5 +1,4 @@
-import { forgeRouter } from '@functions/routes'
-
+import { forgeRouter } from '@functions/routes';
 const appRoutes = forgeRouter({
   achievements: (await import('@lib/achievements/server')).default,
   codeTime: (await import('@lib/codeTime/server')).default,
@@ -13,14 +12,12 @@ const appRoutes = forgeRouter({
   calendar: (await import('@lib/calendar/server')).default,
   booksLibrary: (await import('@lib/booksLibrary/server')).default,
   sudoku: (await import('@lib/sudoku/server')).default,
-  changiAirportFlightStatus: (
-    await import('@lib/changiAirportFlightStatus/server')
-  ).default,
+  changiAirportFlightStatus: (await import('@lib/changiAirportFlightStatus/server')).default,
   movies: (await import('@lib/movies/server')).default,
   momentVault: (await import('@lib/momentVault/server')).default,
   wallet: (await import('@lib/wallet/server')).default,
   todoList: (await import('@lib/todoList/server')).default,
-  modrinth: (await import('@lib/modrinth/server')).default
-})
-
-export default appRoutes
+  modrinth: (await import('@lib/modrinth/server')).default,
+  localIpWidget: (await import('@lib/localIpWidget/server')).default
+});
+export default appRoutes;
