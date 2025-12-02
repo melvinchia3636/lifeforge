@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import TwoFAModal from '@/auth/modals/TwoFAModal'
 import AppRoutesProvider from '@/routes/providers/AppRoutesProvider'
 import forgeAPI from '@/utils/forgeAPI'
+// @ts-ignore: Hmmmm
+import { MusicProvider } from '@modules/music/client/src/providers/MusicProvider'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { BackendFactory } from 'dnd-core'
 import { useModalStore } from 'lifeforge-ui'
@@ -76,6 +79,9 @@ function Providers() {
         [BackgroundProvider],
         // Provider that exposes a socket.io client instance to the app
         [SocketProvider],
+
+        [MusicProvider],
+
         // This is where all the routes are defined
         [AppRoutesProvider]
       ] as const),
