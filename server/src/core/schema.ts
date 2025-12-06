@@ -15,7 +15,8 @@ export const SCHEMAS = {
   moment_vault: (await import('@lib/momentVault/server/schema')).default,
   movies: (await import('@lib/movies/server/schema')).default,
   railway_map: (await import('@lib/railwayMap/server/schema')).default,
-  rental_payment_tracker: (await import('@lib/rentalPaymentTracker/server/schema')).default
+  rental_payment_tracker: (await import('@lib/rentalPaymentTracker/server/schema')).default,
+  invoice_maker: (await import('@lib/invoiceMaker/server/schema')).default
 };
 const COLLECTION_SCHEMAS = flattenSchemas(SCHEMAS);
 export default COLLECTION_SCHEMAS;

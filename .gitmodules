@@ -67,3 +67,6 @@
 [submodule "apps/rentalPaymentTracker"]
 	path = apps/rentalPaymentTracker
 	url = https://github.com/melvinchia3636/lifeforge-module-rentalPaymentTracker.git
+[submodule "apps/invoiceMaker"]
+	path = apps/invoiceMaker
+	url = https://github.com/melvinchia3636/lifeforge-module-invoiceMaker.git

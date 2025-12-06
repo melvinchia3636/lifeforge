@@ -19,6 +19,7 @@ const appRoutes = forgeRouter({
   todoList: (await import('@lib/todoList/server')).default,
   modrinth: (await import('@lib/modrinth/server')).default,
   localIpWidget: (await import('@lib/localIpWidget/server')).default,
-  rentalPaymentTracker: (await import('@lib/rentalPaymentTracker/server')).default
+  rentalPaymentTracker: (await import('@lib/rentalPaymentTracker/server')).default,
+  invoiceMaker: (await import('@lib/invoiceMaker/server')).default
 });
 export default appRoutes;
