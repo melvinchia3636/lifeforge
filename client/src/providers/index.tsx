@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import TwoFAModal from '@/auth/modals/TwoFAModal'
 import AppRoutesProvider from '@/routes/providers/AppRoutesProvider'
 import forgeAPI from '@/utils/forgeAPI'

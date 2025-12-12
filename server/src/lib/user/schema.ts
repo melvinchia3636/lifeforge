@@ -125,8 +125,8 @@ const usersSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text1579384326',
-          max: 255,
+          id: 'users_name',
+          max: 0,
           min: 0,
           name: 'name',
           pattern: '',
@@ -138,9 +138,9 @@ const usersSchemas = {
         },
         {
           hidden: false,
-          id: 'file376926767',
+          id: 'users_avatar',
           maxSelect: 1,
-          maxSize: 0,
+          maxSize: 5242880,
           mimeTypes: [
             'image/jpeg',
             'image/png',
@@ -153,7 +153,7 @@ const usersSchemas = {
           protected: false,
           required: false,
           system: false,
-          thumbs: null,
+          thumbs: ['256x0'],
           type: 'file'
         },
         {
