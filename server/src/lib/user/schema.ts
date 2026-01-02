@@ -16,7 +16,7 @@ const usersSchemas = {
       bgImage: z.string(),
       backdropFilters: z.any(),
       fontFamily: z.string(),
-      language: z.string(),
+      language: z.enum(['zh-CN', 'en', 'ms', 'zh-TW']),
       dashboardLayout: z.any(),
       masterPasswordHash: z.string(),
       APIKeysMasterPasswordHash: z.string(),
@@ -228,17 +228,14 @@ const usersSchemas = {
           type: 'text'
         },
         {
-          autogeneratePattern: '',
           hidden: false,
-          max: 0,
-          min: 0,
+          maxSelect: 1,
           name: 'language',
-          pattern: '',
           presentable: false,
-          primaryKey: false,
-          required: false,
+          required: true,
           system: false,
-          type: 'text'
+          type: 'select',
+          values: ['zh-CN', 'en', 'ms', 'zh-TW']
         },
         {
           hidden: false,
