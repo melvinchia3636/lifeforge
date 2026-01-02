@@ -16,7 +16,8 @@ export const SCHEMAS = {
   railway_map: (await import('@lib/railwayMap/server/schema')).default,
   rental_payment_tracker: (await import('@lib/rentalPaymentTracker/server/schema')).default,
   invoice_maker: (await import('@lib/invoiceMaker/server/schema')).default,
-  pomodoro_timer: (await import('@lib/pomodoroTimer/server/schema')).default
+  pomodoro_timer: (await import('@lib/pomodoroTimer/server/schema')).default,
+  wallet: (await import('@lib/wallet/server/schema')).default
 };
 const COLLECTION_SCHEMAS = flattenSchemas(SCHEMAS);
 export default COLLECTION_SCHEMAS;

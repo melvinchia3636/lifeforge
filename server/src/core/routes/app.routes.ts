@@ -20,6 +20,7 @@ const appRoutes = forgeRouter({
   localIpWidget: (await import('@lib/localIpWidget/server')).default,
   rentalPaymentTracker: (await import('@lib/rentalPaymentTracker/server')).default,
   invoiceMaker: (await import('@lib/invoiceMaker/server')).default,
-  pomodoroTimer: (await import('@lib/pomodoroTimer/server')).default
+  pomodoroTimer: (await import('@lib/pomodoroTimer/server')).default,
+  wallet: (await import('@lib/wallet/server')).default
 });
 export default appRoutes;

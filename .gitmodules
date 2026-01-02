@@ -73,3 +73,6 @@
 [submodule "apps/pomodoroTimer"]
 	path = apps/pomodoroTimer
 	url = https://github.com/lifeforge-app/lifeforge-module-pomodoroTimer.git
+[submodule "apps/wallet"]
+	path = apps/wallet
+	url = https://github.com/lifeforge-app/lifeforge-module-wallet.git
