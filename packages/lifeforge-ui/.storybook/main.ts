@@ -2,6 +2,7 @@
 import type { StorybookConfig } from '@storybook/react-vite'
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
+import type { PluginOption } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 const require = createRequire(import.meta.url)
@@ -31,7 +32,7 @@ const config: StorybookConfig = {
     skipCompiler: true
   },
   viteFinal: async config => {
-    config.plugins = [...(config.plugins ?? []), tsconfigPaths()]
+    config.plugins = [...(config.plugins ?? []), tsconfigPaths()] as PluginOption[]
     config.plugins.push((await import('@tailwindcss/vite')).default())
     return {
       ...config
