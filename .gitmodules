@@ -76,3 +76,12 @@
 [submodule "apps/wallet"]
 	path = apps/wallet
 	url = https://github.com/lifeforge-app/lifeforge-module-wallet.git
+[submodule "locales/zh-CN"]
+	path = locales/zh-CN
+	url = https://github.com/lifeforge-app/lang-zh-CN.git
+[submodule "locales/zh-TW"]
+	path = locales/zh-TW
+	url = https://github.com/lifeforge-app/lang-zh-TW.git
+[submodule "locales/ms"]
+	path = locales/ms
+	url = https://github.com/lifeforge-app/lang-ms.git
