@@ -1,8 +1,17 @@
-import { useUserPersonalization } from '@/providers/features/UserPersonalizationProvider'
-import clsx from 'clsx'
-import { Listbox, ListboxOption } from 'lifeforge-ui'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
+
+import {
+  Bordered,
+  Box,
+  Flex,
+  Listbox,
+  ListboxOption,
+  Text,
+  surface
+} from '@lifeforge/ui'
+
+import { useUserPersonalization } from '@/providers/features/UserPersonalizationProvider'
 
 const COLORS = [
   'red',
@@ -38,17 +47,21 @@ function DefaultThemeColorSelector({
 
   return (
     <Listbox
-      buttonContent={
-        <div className="flex items-center gap-2">
-          <span
-            className={clsx(
-              'inline-block size-4 shrink-0 rounded-full',
-              !themeColor.startsWith('#')
-                ? 'bg-custom-500'
-                : 'border-bg-500 border-2'
-            )}
+      bg={surface.lightInteractive}
+      minWidth="16em"
+      renderContent={() => (
+        <Flex align="center" gap="sm" maxWidth="16em" minWidth="0">
+          <Bordered
+            bg={!themeColor.startsWith('#') ? 'custom-500' : undefined}
+            borderColor="bg-500"
+            borderWidth={themeColor.startsWith('#') ? '2px' : '0px'}
+            display="inline-block"
+            flexShrink="0"
+            height="1em"
+            r="full"
+            width="1em"
           />
-          <span className="-mt-px block truncate">
+          <Text truncate>
             {t(
               `themeColorSelector.colors.${
                 !themeColor.startsWith('#')
@@ -62,10 +75,9 @@ function DefaultThemeColorSelector({
                   : 'custom'
               }`
             )}
-          </span>
-        </div>
-      }
-      className="component-bg-lighter min-w-64 p-6"
+          </Text>
+        </Flex>
+      )}
       value={themeColor.startsWith('#') ? 'theme-custom' : themeColor}
       onChange={color => {
         changeThemeColor(color === 'theme-custom' ? customThemeColor : color)
@@ -83,11 +95,14 @@ function DefaultThemeColorSelector({
             )}`
           )}
           renderColorAndIcon={() => (
-            <span
-              className={clsx(
-                'bg-custom-500 inline-block size-4 shrink-0 rounded-full',
-                `theme-${color}`
-              )}
+            <Box
+              bg="primary"
+              className={`theme-${color}`}
+              display="inline-block"
+              flexShrink="0"
+              height="1em"
+              r="full"
+              width="1em"
             />
           )}
           value={`theme-${color}`}
@@ -97,7 +112,14 @@ function DefaultThemeColorSelector({
         key="custom"
         label={t('themeColorSelector.colors.custom')}
         renderColorAndIcon={() => (
-          <span className="border-bg-500 inline-block size-4 rounded-full border-2" />
+          <Bordered
+            borderColor="bg-500"
+            borderWidth="2px"
+            flexShrink="0"
+            height="1em"
+            r="full"
+            width="1em"
+          />
         )}
         value="theme-custom"
       />

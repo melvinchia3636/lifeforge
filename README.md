@@ -31,7 +31,6 @@ A self-hosted solution to streamline and organize all aspects of your life.</p>
 ![skills](https://img.shields.io/badge/-TYPESCRIPT-FF0000?style=for-the-badge&logo=typescript&logoColor=white&color=3178C6)
 ![skills](https://img.shields.io/badge/-HTML-FF0000?style=for-the-badge&logo=html5&logoColor=white&color=orange)
 ![skills](https://img.shields.io/badge/-CSS-FF0000?style=for-the-badge&logo=css3&logoColor=white&color=blue)
-![skills](https://img.shields.io/badge/-TAILWIND_CSS-FF0000?style=for-the-badge&logo=tailwindcss&logoColor=white&color=teal)
 ![skills](https://img.shields.io/badge/-REACT_JS-FF0000?style=for-the-badge&logo=react&logoColor=white&color=skyblue)
 ![skills](https://img.shields.io/badge/-NODE_JS-FF0000?style=for-the-badge&logo=node.js&logoColor=white&color=green)
 ![skills](https://img.shields.io/badge/-EXPRESS_JS-FF0000?style=for-the-badge&logo=express&logoColor=white&color=black)
@@ -65,6 +64,7 @@ A self-hosted solution to streamline and organize all aspects of your life.</p>
   - [Feature Requests \& Bug Reports](#feature-requests--bug-reports)
   - [Translation](#translation)
 - [💡 Credits](#-credits)
+- [⭐️ Star History](#️-star-history)
 - [📄 License](#-license)
 
 ## 🔥 Support the Author
@@ -72,7 +72,6 @@ A self-hosted solution to streamline and organize all aspects of your life.</p>
 <a href="https://www.buymeacoffee.com/melvinchiah" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" width="217">
 </a>
-
 
 ## 🤔 The Problem
 
@@ -128,9 +127,6 @@ explore and discover within the project.
   <img width="49%" src="https://github.com/user-attachments/assets/16b23910-37bf-4f56-892d-c971d70b19ae">
 </div>
 
-
-
-
 ## ⌨️ Setup
 
 **LifeForge now supports Docker for easy deployment! 🐳 You can get up and running with just a few commands. For those who prefer manual installation, that option is still available.**
@@ -140,7 +136,6 @@ Visit the [Documentation](https://docs.lifeforge.dev) to see how to install and 
 ## Contributing
 
 We welcome contributions from the community! If you're interested in contributing to LifeForge, please check out our [Contributing Guidelines](https://docs.lifeforge.dev/developer-guide/contributing).
-
 
 ### Contributing to Core
 

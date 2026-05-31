@@ -1,7 +1,7 @@
-import { ClientError, forgeRouter } from '@lifeforge/server-utils'
+import { decrypt2, encrypt2 } from '@functions/auth/encryption'
 import z from 'zod'
 
-import { decrypt2, encrypt2 } from '@functions/auth/encryption'
+import { ClientError, forgeRouter } from '@lifeforge/server-utils'
 
 import forge from '../forge'
 
@@ -20,7 +20,7 @@ const get = forge
       .collection('entries')
       .filter([
         {
-          field: 'keyId',
+          field: 'id',
           operator: '=',
           value: keyId
         }

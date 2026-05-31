@@ -1,15 +1,17 @@
 import { useMutation } from '@tanstack/react-query'
+import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+
+import { usePersonalization } from '@lifeforge/shared'
 import {
   Button,
   ConfirmationModal,
   FilePickerModal,
-  OptionsColumn
-} from 'lifeforge-ui'
-import { useModalStore } from 'lifeforge-ui'
-import { useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
-import { usePersonalization } from 'shared'
+  Flex,
+  OptionsColumn,
+  useModalStore
+} from '@lifeforge/ui'
 
 import forgeAPI from '@/forgeAPI'
 
@@ -29,7 +31,7 @@ function BgImageSelector() {
   }, [])
 
   const deleteMutation = useMutation(
-    forgeAPI.untyped('user/personalization/deleteBgImage').mutationOptions({
+    forgeAPI.user.personalization.deleteBgImage.mutationOptions({
       onSuccess: () => {
         setBgImage('')
         setBackdropFilters({
@@ -59,11 +61,9 @@ function BgImageSelector() {
 
   async function onSubmit(file: string | File) {
     try {
-      const data = await forgeAPI
-        .untyped('user/personalization/updateBgImage')
-        .mutate({
-          file
-        })
+      const data = await forgeAPI.user.personalization.updateBgImage.mutate({
+        file
+      })
 
       setBgImage(forgeAPI.getMedia(data))
       toast.success('Background image updated')
@@ -92,36 +92,38 @@ function BgImageSelector() {
         title={t('bgImageSelector.title')}
       >
         {bgImage !== '' ? (
-          <>
+          <Flex
+            direction={{ base: 'column', md: 'row' }}
+            gap="sm"
+            width={{ base: '100%', md: 'auto' }}
+          >
             <Button
-              className="w-1/2 md:w-auto"
               icon="tabler:adjustments"
               variant="plain"
+              width={{ base: '100%', md: 'auto' }}
               onClick={handleAdjustBgImage}
             >
               adjust
             </Button>
             <Button
               dangerous
-              className="w-1/2 md:w-auto"
               icon="tabler:trash"
               variant="plain"
+              width={{ base: '100%', md: 'auto' }}
               onClick={handleDeleteBgImage}
             >
               remove
             </Button>
-          </>
+          </Flex>
         ) : (
-          <>
-            <Button
-              className="w-full md:w-auto"
-              icon="tabler:photo-hexagon"
-              variant="secondary"
-              onClick={handleOpenImageSelector}
-            >
-              select
-            </Button>
-          </>
+          <Button
+            icon="tabler:photo-hexagon"
+            variant="secondary"
+            width={{ base: '100%', md: 'auto' }}
+            onClick={handleOpenImageSelector}
+          >
+            select
+          </Button>
         )}
       </OptionsColumn>
     </>

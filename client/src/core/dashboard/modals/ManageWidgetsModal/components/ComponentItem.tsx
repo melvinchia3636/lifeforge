@@ -1,9 +1,18 @@
-import { Icon } from '@iconify/react'
-import clsx from 'clsx'
-import { Switch } from 'lifeforge-ui'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { type IDashboardLayout, usePersonalization } from 'shared'
+
+import { type IDashboardLayout, usePersonalization } from '@lifeforge/shared'
+import {
+  Box,
+  Card,
+  Flex,
+  Icon,
+  Stack,
+  Switch,
+  Text,
+  Transition,
+  colorWithOpacity
+} from '@lifeforge/ui'
 
 import { useUserPersonalization } from '@/providers/features/UserPersonalizationProvider'
 
@@ -106,20 +115,45 @@ function ComponentListItem({
   }
 
   return (
-    <li className="flex-between bg-bg-50 shadow-custom dark:bg-bg-800/50 flex gap-8 rounded-lg p-4" onClick={toggleComponent}>
-      <div className="flex items-center gap-3">
-        <div
-          className={clsx(
-            'flex size-10 shrink-0 items-center justify-center rounded-lg transition-all',
-            Object.keys(enabledWidgets).includes(id)
-              ? 'bg-custom-500/20 text-custom-500'
-              : 'bg-bg-200 text-bg-400 dark:bg-bg-700/50 dark:text-bg-500'
-          )}
+    <Card
+      shadow
+      align={{ base: 'start', sm: 'center' }}
+      as="li"
+      bg={{
+        base: 'bg-50',
+        dark: colorWithOpacity('bg-800', '50%')
+      }}
+      direction={{ base: 'column', sm: 'row' }}
+      gap="md"
+      justify="between"
+      onClick={toggleComponent}
+    >
+      <Transition>
+        <Flex
+          centered
+          bg={
+            isEnabled
+              ? colorWithOpacity('custom-500', '10%')
+              : {
+                  base: 'bg-200',
+                  dark: colorWithOpacity('bg-700', '50%')
+                }
+          }
+          flexShrink="0"
+          height="3em"
+          r="lg"
+          width="3em"
         >
-          <Icon className="size-6" icon={icon} />
-        </div>
-        <div className="flex flex-col">
-          <div className="font-semibold">
+          <Icon
+            color={isEnabled ? 'custom-500' : 'bg-500'}
+            icon={icon}
+            size="1.5em"
+          />
+        </Flex>
+      </Transition>
+      <Flex align="center" gap="md" justify="between" width="100%">
+        <Stack gap="none">
+          <Text as="h3" weight="semibold">
             {t([
               `widgets.${namespace}.${id}.title`,
               `widgets.${id}.title`,
@@ -127,22 +161,28 @@ function ComponentListItem({
               `widgets.${id}`,
               id
             ])}
-          </div>
-          <div className="text-bg-500 text-sm">
+          </Text>
+          <Text color="muted" size="sm">
             {t([
               `widgets.${namespace}.${id}.description`,
               `widgets.${id}.description`
             ])}
-          </div>
-        </div>
-      </div>
-      <Switch
-        value={isEnabled}
-        onChange={() => {
-          toggleComponent()
-        }}
-      />
-    </li>
+          </Text>
+        </Stack>
+        <Box
+          position={{ base: 'absolute', sm: 'static' }}
+          right="1em"
+          top="1.75em"
+        >
+          <Switch
+            value={isEnabled}
+            onChange={() => {
+              toggleComponent()
+            }}
+          />
+        </Box>
+      </Flex>
+    </Card>
   )
 }
 

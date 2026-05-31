@@ -1,51 +1,105 @@
+import _ from 'lodash'
+
+import {
+  Bordered,
+  Box,
+  Flex,
+  Listbox,
+  ListboxOption,
+  Text,
+  surface
+} from '@lifeforge/ui'
+
 import { useUserPersonalization } from '@/providers/features/UserPersonalizationProvider'
-import { Icon } from '@iconify/react'
-import clsx from 'clsx'
-import { useTranslation } from 'react-i18next'
 
-const COLORS = ['bg-slate', 'bg-gray', 'bg-zinc', 'bg-neutral', 'bg-stone']
+const COLORS = [
+  'bg-slate',
+  'bg-gray',
+  'bg-zinc',
+  'bg-neutral',
+  'bg-stone',
+  'bg-mauve',
+  'bg-olive',
+  'bg-mist',
+  'bg-taupe'
+]
 
-function DefaultBgTempSelector({ bgTemp }: { bgTemp: string }) {
-  const { t } = useTranslation('common.personalization')
-
+function DefaultBgTempSelector({
+  bgTemp,
+  customBgTemp
+}: {
+  bgTemp: string
+  customBgTemp: string
+}) {
   const { changeBgTemp } = useUserPersonalization()
 
   return (
-    <div className="flex w-full flex-col items-center gap-2 xl:w-auto">
-      <div className="flex items-center gap-3">
-        {COLORS.map((color, index) => (
-          <button
-            key={index}
-            className={clsx(
-              'bg-bg-500 ring-offset-bg-50 dark:ring-offset-bg-950 flex size-8 items-center justify-center rounded-full ring-offset-2 transition-all',
-              color,
-              bgTemp === color
-                ? 'ring-bg-500 ring-2'
-                : 'hover:ring-bg-500 hover:ring-2'
-            )}
-            onClick={() => {
-              changeBgTemp(color)
-            }}
-          >
-            {bgTemp === color && (
-              <Icon
-                className="text-bg-50 dark:text-bg-800 size-4"
-                icon="tabler:check"
-              />
-            )}
-          </button>
-        ))}
-      </div>
-      <div className="flex-between flex w-full gap-2">
-        <span className="text-bg-500 shrink-0 text-sm font-medium">
-          {t('bgTempSelector.cool')}
-        </span>
-        <span className="mt-px h-0.5 w-full bg-linear-to-r from-blue-500 to-red-500"></span>
-        <span className="text-bg-500 shrink-0 text-sm font-medium">
-          {t('bgTempSelector.warm')}
-        </span>
-      </div>
-    </div>
+    <Listbox
+      bg={surface.lightInteractive}
+      minWidth="12em"
+      renderContent={() => (
+        <Flex
+          align="center"
+          gap="sm"
+          maxWidth={{ base: 'none', md: '12em' }}
+          minWidth="0"
+        >
+          <Box
+            bg="bg-500"
+            className={bgTemp}
+            display="inline-block"
+            flexShrink="0"
+            height="1em"
+            r="full"
+            width="1em"
+          />
+          <Text truncate>
+            {bgTemp.startsWith('#')
+              ? 'Custom'
+              : _.startCase(bgTemp.replace('bg-', ''))}
+          </Text>
+        </Flex>
+      )}
+      value={bgTemp.startsWith('#') ? 'bg-custom' : bgTemp}
+      width="100%"
+      onChange={color => {
+        changeBgTemp(color === 'bg-custom' ? customBgTemp : color)
+      }}
+    >
+      {COLORS.map(color => (
+        <ListboxOption
+          key={color}
+          label={_.startCase(color.replace('bg-', ''))}
+          renderColorAndIcon={() => (
+            <Box
+              bg="bg-500"
+              className={color}
+              display="inline-block"
+              flexShrink="0"
+              height="1em"
+              r="full"
+              width="1em"
+            />
+          )}
+          value={color}
+        />
+      ))}
+      <ListboxOption
+        key="custom"
+        label="Custom"
+        renderColorAndIcon={() => (
+          <Bordered
+            borderColor="bg-500"
+            borderWidth="2px"
+            flexShrink="0"
+            height="1em"
+            r="full"
+            width="1em"
+          />
+        )}
+        value="bg-custom"
+      />
+    </Listbox>
   )
 }
 

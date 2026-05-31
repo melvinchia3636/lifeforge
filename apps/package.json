@@ -1,0 +1,6 @@
+{
+  "name": "@lifeforge/apps",
+  "private": true,
+  "description": "LifeForge modules",
+  "dependencies": {}
+}

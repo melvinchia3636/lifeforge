@@ -1,3 +1,22 @@
+> [!NOTE]
+> Jangan risau, LifeForge masih aktif dibangunkan. Kemajuan terkini boleh didapati [di sini](https://github.com/Lifeforge-app/lifeforge/tree/features/forge-ui-overhaul).
+> ### Kemas Kini 31 Mei 2026
+> Pembinaan semula pustaka UI dan migrasi kod teras klien daripada Tailwind telah selesai. Yang tinggal hanyalah memigrasi semua modul.
+
+> [!CAUTION]
+>
+> ## ⚠️ Pembangunan Ditangguh – Isu Kritikal Seni Bina CSS
+>
+> **Kemajuan keseluruhan sistem terpaksa dihentikan buat sementara** disebabkan konflik lapisan CSS yang teruk antara aplikasi hos dan modul persekutuan.
+>
+> **Punca Masalah:** Apabila hos dan modul persekutuan masing-masing membungkus Tailwind CSS secara berasingan, konflik lapisan kaskad CSS berlaku. Ini menyebabkan penggantian gaya yang tidak dapat diramal merentasi sempadan modul, memecahkan utiliti responsif (contohnya `flex md:grid`) dan menyebabkan gaya modul mengatasi gaya hos secara tidak sengaja. Isu ini adalah sifat semula jadi CSS global berasaskan utiliti dalam persekitaran persekutuan modul dan tidak dapat diselesaikan dengan konfigurasi semata-mata.
+>
+> **Arah Penyelesaian:**
+> PR **#93** memperkenalkan versi dipertingkatkan pustaka UI dalaman yang bertujuan **menggantikan Tailwind sepenuhnya**. Sistem baharu ini berasaskan token, berkomponen, dan mengelakkan CSS utiliti global, menghapuskan konflik lapisan rentas sempadan secara reka bentuk. Perubahan ini mewujudkan kontrak gaya yang seragam dan boleh diramal merentasi hos dan semua modul persekutuan.
+>
+> **Penting:**
+> Migrasi ini melibatkan **perubahan pecah** dan merupakan peralihan seni bina yang dirancang. Walaupun mengganggu dalam jangka pendek, ia diperlukan untuk memastikan kestabilan dan ketepatan jangka panjang sistem persekutuan modul. Sila rujuk [isu ini](https://github.com/lifeforge-app/lifeforge/issues/93) untuk kemas kini dan butiran migrasi.
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/LifeForge-app/lifeforge-docs-media/main/assets/lifeforge-logo.svg" alt="LifeForge Logo" width="240" height="80"/>
 </div>
@@ -11,7 +30,6 @@
 ![skills](https://img.shields.io/badge/-TYPESCRIPT-FF0000?style=for-the-badge&logo=typescript&logoColor=white&color=3178C6)
 ![skills](https://img.shields.io/badge/-HTML-FF0000?style=for-the-badge&logo=html5&logoColor=white&color=orange)
 ![skills](https://img.shields.io/badge/-CSS-FF0000?style=for-the-badge&logo=css3&logoColor=white&color=blue)
-![skills](https://img.shields.io/badge/-TAILWIND_CSS-FF0000?style=for-the-badge&logo=tailwindcss&logoColor=white&color=teal)
 ![skills](https://img.shields.io/badge/-REACT_JS-FF0000?style=for-the-badge&logo=react&logoColor=white&color=skyblue)
 ![skills](https://img.shields.io/badge/-NODE_JS-FF0000?style=for-the-badge&logo=node.js&logoColor=white&color=green)
 ![skills](https://img.shields.io/badge/-EXPRESS_JS-FF0000?style=for-the-badge&logo=express&logoColor=white&color=black)
@@ -25,27 +43,33 @@
 
 ## 📋 Kandungan
 
-- [📋 Kandungan](#-table-of-contents)
-- [🔥 Sokong Pengarang](#-support-the-author)
-- [🤔 Masalah](#-the-problem)
-- [✅ Penyelesaian](#-the-solution)
-- [🧱 Modul](#-modules)
-- [🖥 Tangkapan Skrin](#-screenshots)
-- [⌨️ Pemasangan](#️-setup)
-- [Sumbangan](#contributing)
-	- [Sumbangan kepada Teras](#contributing-to-core)
-	- [Mencipta Modul](#creating-modules)
-	- [Permintaan Ciri & Laporan Bug](#feature-requests--bug-reports)
-	- [Terjemahan](#translation)
-- [💡 Kredit](#-credits)
-- [📄 Lesen](#-license)
+- [📋 Kandungan](#-kandungan)
+- [🔥 Sokong Pengarang](#-sokong-pengarang)
+- [🤔 Masalah](#-masalah)
+- [✅ Penyelesaian](#-penyelesaian)
+- [🧱 Modul](#-modul)
+- [🖥 Tangkapan Skrin](#-tangkapan-skrin)
+- [⌨️ Pemasangan](#️-pemasangan)
+- [Sumbangan](#sumbangan)
+	- [Sumbangan kepada Teras](#sumbangan-kepada-teras)
+	- [Mencipta Modul](#mencipta-modul)
+	- [Permintaan Ciri \& Laporan Bug](#permintaan-ciri--laporan-bug)
+	- [Terjemahan](#terjemahan)
+- [💡 Kredit](#-kredit)
+- [📄 Lesen](#-lesen)
+
+<div align="center">
+<a href="../README.md">🇬🇧 English</a>
+<a href="README.zh-CN.md">🇨🇳 简体中文</a>
+<a href="README.zh-TW.md">🇹🇼 繁體中文</a>
+<a href="README.ms.md">🇲🇾 Bahasa Malaysia</a>
+</div>
 
 ## 🔥 Sokong Pengarang
 
 <a href="https://www.buymeacoffee.com/melvinchiah" target="_blank">
 	<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" width="217">
 </a>
-
 
 ## 🤔 Masalah
 
@@ -55,11 +79,11 @@ Kebanyakan perkhidmatan SaaS memerlukan langganan bulanan (atau tahunan), yang b
 
 ## ✅ Penyelesaian
 
-LifeForge ialah sistem pengurusan peribadi yang dihoskan sendiri untuk membantu anda mengatur kehidupan. Sama ada menjejak tugas, mengatur projek, menetapkan matlamat peribadi, atau mengurus kewangan — LifeForge membantu.
+LifeForge ialah sistem pengurusan peribadi yang dihoskan sendiri untuk membantu anda mengatur kehidupan. Sama ada menjejak tugas, mengatur projek, menetapkan matlamat peribadi, atau mengurus kewangan - LifeForge membantu.
 
 Dengan seni bina modular, anda boleh menyesuaikan LifeForge mengikut keperluan. Hidupkan hanya modul yang anda perlukan untuk mengelakkan kekacauan ciri dan mencipta pengalaman yang ringkas dan diperibadikan.
 
-Dibina dengan fokus privasi, data anda disimpan secara tempatan pada peranti anda (kami tidak akan menyediakan hosting), jadi anda mengekalkan kawalan penuh terhadap data sendiri. Tiada telemetri, tiada perlombongan data — privasi didahulukan.
+Dibina dengan fokus privasi, data anda disimpan secara tempatan pada peranti anda (kami tidak akan menyediakan hosting), jadi anda mengekalkan kawalan penuh terhadap data sendiri. Tiada telemetri, tiada perlombongan data - privasi didahulukan.
 
 ## 🧱 Modul
 
@@ -67,7 +91,7 @@ Sistem modul LifeForge menyediakan pelbagai modul yang tertumpu kepada aspek keh
 
 Sorotan utama modul termasuk:
 
-- Alat Produktiviti: Senarai Tugasan, Projek, Idea Box, Pemasa Pomodoro — alat untuk mengurus tugas, berfikir idea dan kekal fokus.
+- Alat Produktiviti: Senarai Tugasan, Projek, Idea Box, Pemasa Pomodoro - alat untuk mengurus tugas, berfikir idea dan kekal fokus.
 - Pengurusan Kewangan: Dompet, Wishlist, modul Belanjawan untuk mengesan perbelanjaan, penjimatan dan perancangan.
 - Peningkatan Gaya Hidup: Jurnal, Pencapaian dan penjejakan Senaman untuk refleksi dan tabiat sihat.
 - Bantuan Pembelajaran: Flashcards, Nota dan Algoritma CFOP untuk pelajar dan pembelajaran sepanjang hayat.
@@ -102,8 +126,6 @@ Tangkapan skrin menunjukkan sekilas LifeForge. Terdapat lebih banyak yang boleh 
 	<img width="49%" src="https://github.com/user-attachments/assets/16b23910-37bf-4f56-892d-c971d70b19ae">
 </div>
 
-
-
 ## ⌨️ Pemasangan
 
 **LifeForge kini menyokong Docker untuk penyebaran mudah! 🐳 Anda boleh memulakan dengan beberapa arahan. Bagi yang memilih pemasangan manual, pilihan itu masih tersedia.**
@@ -115,7 +137,6 @@ Lihat dokumentasi untuk arahan pemasangan dan konfigurasi:
 ## Sumbangan
 
 Kami mengalu-alukan sumbangan. Sila rujuk [Contributing Guidelines](https://docs.lifeforge.dev/developer-guide/contributing).
-
 
 ### Sumbangan kepada Teras
 
@@ -142,6 +163,20 @@ Untuk terjemahan modul khusus, rujuk dokumentasi modul itu.
 Idea LifeForge berasal daripada keperluan sistem pengurusan peribadi yang menyatukan pelbagai alat, dan oleh [projek ini](https://github.com/Volmarg/personal-management-system). Lihat dokumentasi untuk kisah penuh.
 
 Terima kasih kepada komuniti sumber terbuka untuk perpustakaan dan alat yang digunakan dalam projek ini.
+
+## ⭐️ Sejarah Bintang
+
+Pertumbuhan eksponen yang luar biasa. Terima kasih banyak kepada semua yang menyokong projek ini!
+
+<div align="center">
+<a href="https://www.star-history.com/#lifeforge-app/lifeforge&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=lifeforge-app/lifeforge&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=lifeforge-app/lifeforge&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=lifeforge-app/lifeforge&type=date&legend=top-left" />
+ </picture>
+</a>
+</div>
 
 ## 📄 Lesen
 

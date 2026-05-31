@@ -1,8 +1,17 @@
-import { Icon } from '@iconify/react'
 import { useQuery } from '@tanstack/react-query'
-import { Button, OptionsColumn, WithQuery, useModalStore } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
-import { usePersonalization } from 'shared'
+
+import { usePersonalization } from '@lifeforge/shared'
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  OptionsColumn,
+  Text,
+  WithQuery,
+  useModalStore
+} from '@lifeforge/ui'
 
 import forgeAPI from '@/forgeAPI'
 
@@ -16,8 +25,7 @@ function FontFamilySelector() {
   const { fontFamily } = usePersonalization()
 
   const customFontQuery = useQuery(
-    forgeAPI
-      .untyped('user/customFonts/get')
+    forgeAPI.user.customFonts.get
       .input({
         id: fontFamily.replace('custom:', '')
       })
@@ -33,51 +41,53 @@ function FontFamilySelector() {
       title={t('fontFamily.title')}
       tooltip={
         <>
-          <h3 className="mb-2 flex items-center gap-2 text-lg font-medium">
-            <Icon className="size-5" icon="simple-icons:googlefonts" />
-            {t('fontFamily.tooltipTitle')}
-          </h3>
-          <p className="text-bg-500 relative z-40 text-sm">
+          <Flex align="center" gap="sm">
+            <Icon icon="simple-icons:googlefonts" />
+            <Text size="lg" weight="medium">
+              {t('fontFamily.tooltipTitle')}
+            </Text>
+          </Flex>
+          <Text as="p" color="muted" mt="sm">
             {t('fontFamily.tooltip')}
-          </p>
+          </Text>
         </>
       }
     >
-      <div className="flex w-full flex-col items-center gap-6 md:flex-row">
+      <Flex
+        align="center"
+        direction={{ base: 'column', md: 'row' }}
+        flexShrink="0"
+        gap="lg"
+        width="100%"
+      >
         {fontFamily.startsWith('custom:') ? (
           <WithQuery query={customFontQuery}>
             {customFont => (
-              <div
-                className="shrink-0"
-                style={{
-                  fontFamily: customFont.family
-                }}
-              >
-                {customFont.displayName}
-              </div>
+              <Box asChild flexShrink="0">
+                <Text size="lg" style={{ fontFamily: customFont.family }}>
+                  {customFont.displayName}
+                </Text>
+              </Box>
             )}
           </WithQuery>
         ) : (
-          <div
-            className="shrink-0"
-            style={{
-              fontFamily
-            }}
-          >
-            {fontFamily}
-          </div>
+          <Box asChild flexShrink="0">
+            <Text size="lg" style={{ fontFamily }}>
+              {fontFamily || 'Onest'}
+            </Text>
+          </Box>
         )}
         <Button
-          className="w-full md:w-auto"
           icon="tabler:text-size"
           variant="secondary"
+          width={{ base: '100%', md: 'auto' }}
           onClick={() => {
             open(FontFamilySelectorModal, {})
           }}
         >
           Select
         </Button>
-      </div>
+      </Flex>
     </OptionsColumn>
   )
 }

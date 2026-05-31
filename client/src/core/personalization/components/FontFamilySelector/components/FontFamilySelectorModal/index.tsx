@@ -1,12 +1,14 @@
-import { useUserPersonalization } from '@/providers/features/UserPersonalizationProvider'
-import { Button, ModalHeader, Tabs } from 'lifeforge-ui'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
-import { usePersonalization } from 'shared'
 
-import CustomFontSelector from './tabs/CustomFontSelector'
-import GoogleFontSelector from './tabs/GoogleFontSelector'
+import { usePersonalization } from '@lifeforge/shared'
+import { Button, ModalHeader, Stack, Tabs } from '@lifeforge/ui'
+
+import { useUserPersonalization } from '@/providers/features/UserPersonalizationProvider'
+
+import CustomFontSelector from './tabs/custom'
+import GoogleFontSelector from './tabs/google'
 
 type TabType = 'google' | 'custom'
 
@@ -24,7 +26,7 @@ function FontFamilySelectorModal({ onClose }: { onClose: () => void }) {
   const [selectedFont, setSelectedFont] = useState<string | null>(fontFamily)
 
   return (
-    <div className="flex h-full min-h-[80vh] min-w-[60vw] flex-col">
+    <Stack gap="md" height="100%" minHeight="80vh" minWidth="60vw">
       <ModalHeader
         icon="tabler:text-size"
         namespace="common.personalization"
@@ -32,7 +34,6 @@ function FontFamilySelectorModal({ onClose }: { onClose: () => void }) {
         onClose={onClose}
       />
       <Tabs
-        className="mb-4"
         currentTab={activeTab}
         enabled={['google', 'custom'] as const}
         items={
@@ -51,21 +52,23 @@ function FontFamilySelectorModal({ onClose }: { onClose: () => void }) {
         }
         onTabChange={setActiveTab}
       />
-      {activeTab === 'google' ? (
-        <GoogleFontSelector
-          selectedFont={selectedFont}
-          setSelectedFont={setSelectedFont}
-        />
-      ) : (
-        <CustomFontSelector
-          selectedFont={selectedFont}
-          setSelectedFont={setSelectedFont}
-        />
-      )}
+      <Stack flex="1" width="100%">
+        {activeTab === 'google' ? (
+          <GoogleFontSelector
+            selectedFont={selectedFont}
+            setSelectedFont={setSelectedFont}
+          />
+        ) : (
+          <CustomFontSelector
+            selectedFont={selectedFont}
+            setSelectedFont={setSelectedFont}
+          />
+        )}
+      </Stack>
       {selectedFont && selectedFont !== fontFamily && (
         <Button
-          className="mt-6"
           icon="tabler:check"
+          mt="lg"
           onClick={() => {
             changeFontFamily(selectedFont)
             onClose()
@@ -75,7 +78,7 @@ function FontFamilySelectorModal({ onClose }: { onClose: () => void }) {
           Select
         </Button>
       )}
-    </div>
+    </Stack>
   )
 }
 

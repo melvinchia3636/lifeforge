@@ -1,7 +1,16 @@
-import { useUserPersonalization } from '@/providers/features/UserPersonalizationProvider'
-import { Listbox, ListboxOption, OptionsColumn } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
-import { usePersonalization } from 'shared'
+
+import { usePersonalization } from '@lifeforge/shared'
+import {
+  Flex,
+  Listbox,
+  ListboxOption,
+  OptionsColumn,
+  Text,
+  surface
+} from '@lifeforge/ui'
+
+import { useUserPersonalization } from '@/providers/features/UserPersonalizationProvider'
 
 import BorderRadiusIcon from './components/BorderRadiusIcon'
 
@@ -29,10 +38,12 @@ function BorderRadiusSelector() {
       title={t('borderRadiusSelector.title')}
     >
       <Listbox
-        buttonContent={
-          <div className="flex items-center gap-2">
+        bg={surface.lightInteractive}
+        minWidth="12em"
+        renderContent={() => (
+          <Flex align="center" gap="sm" maxWidth="12em" minWidth="0">
             <BorderRadiusIcon radius={borderRadiusMultiplier} />
-            <span className="-mt-px block truncate">
+            <Text truncate>
               {t(
                 `borderRadiusSelector.options.${
                   BORDER_RADIUS_OPTIONS.find(
@@ -40,10 +51,9 @@ function BorderRadiusSelector() {
                   )?.labelKey ?? 'default'
                 }`
               )}
-            </span>
-          </div>
-        }
-        className="component-bg-lighter min-w-48"
+            </Text>
+          </Flex>
+        )}
         value={borderRadiusMultiplier}
         onChange={value => {
           changeBorderRadiusMultiplier(value)
@@ -53,9 +63,7 @@ function BorderRadiusSelector() {
           <ListboxOption
             key={value}
             label={t(`borderRadiusSelector.options.${labelKey}`)}
-            renderColorAndIcon={() => (
-              <BorderRadiusIcon className="mr-2 size-4" radius={value} />
-            )}
+            renderColorAndIcon={() => <BorderRadiusIcon radius={value} />}
             value={value}
           />
         ))}
