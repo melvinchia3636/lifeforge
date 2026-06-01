@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { FromSchema } from 'json-schema-to-ts'
 import type z from 'zod'
 import type { ZodIntersection, ZodObject, ZodRawShape, ZodTypeAny } from 'zod'
 
@@ -9,20 +10,67 @@ type ZodObjectOrIntersection =
   | ZodObject<ZodRawShape>
   | ZodIntersection<ZodTypeAny, ZodTypeAny>
 
+export type InferFromJSONSchema<T> = T extends undefined
+  ? undefined
+  : T extends boolean
+    ? undefined
+    : T extends object
+      ? FromSchema<T>
+      : undefined
+
+export type InferContractInput<T> = 0 extends 1 & T
+  ? any
+  : T extends {
+      readonly input?: {
+        readonly query?: infer Q
+        readonly body?: infer B
+      }
+    }
+    ? {
+        body: B extends ZodTypeAny
+          ? B
+          : B extends object
+            ? InferFromJSONSchema<B>
+            : undefined
+        query: Q extends ZodTypeAny
+          ? Q
+          : Q extends object
+            ? InferFromJSONSchema<Q>
+            : undefined
+      }
+    : {
+        body: undefined
+        query: undefined
+      }
+
+export type InferContractOutput<T> = 0 extends 1 & T
+  ? any
+  : T extends {
+      readonly output: infer O
+    }
+    ? O extends { readonly OK: infer OKSchema }
+      ? InferFromJSONSchema<OKSchema>
+      : O extends { readonly CREATED: infer CreatedSchema }
+        ? InferFromJSONSchema<CreatedSchema>
+        : any
+    : never
+
+export type InferContractMedia<T> = 0 extends 1 & T
+  ? any
+  : T extends {
+      readonly media?: infer M
+    }
+    ? M extends undefined
+      ? null
+      : M
+    : null
+
 /**
  * Infers the input TypeScript type from a Forge endpoint config object.
  * Uses embedded Zod schema definitions to produce a plain object type.
- *
- * @template T - The endpoint config object with `__isForgeController` and `__input` fields
- *
- * @example
- * ```typescript
- * type UserInput = InferInput<typeof userEndpoint>
- * // { body: { name: string }, query: { id: string } }
- * ```
  */
 export type InferInput<T> = T extends {
-  __isForgeController: true
+  __isForgeContract: true
   __input: infer I
   __media: infer M
 }
@@ -34,10 +82,12 @@ export type InferInput<T> = T extends {
         body: M extends null
           ? B extends ZodObjectOrIntersection
             ? z.input<B>
-            : Record<string, any>
+            : B
           : (B extends ZodObjectOrIntersection
               ? z.input<B>
-              : Record<string, any>) & {
+              : B extends undefined
+                ? {}
+                : B) & {
               [K in keyof M]: M[K] extends { multiple: true }
                 ? M[K] extends { optional: true }
                   ? File[] | undefined
@@ -46,24 +96,16 @@ export type InferInput<T> = T extends {
                   ? File | string | undefined
                   : File | string
             }
-        query: Q extends ZodObjectOrIntersection ? z.input<Q> : never
+        query: Q extends ZodObjectOrIntersection ? z.input<Q> : Q
       }
     : never
   : never
 
 /**
  * Infers the output (response) TypeScript type from a Forge endpoint config object.
- *
- * @template T - The endpoint config object with `__isForgeController` and `__output` fields
- *
- * @example
- * ```typescript
- * type UserResponse = InferOutput<typeof userEndpoint>
- * // { id: string, name: string, email: string }
- * ```
  */
 export type InferOutput<T> = T extends {
-  __isForgeController: true
+  __isForgeContract: true
   __output: infer O
 }
   ? O
@@ -71,17 +113,10 @@ export type InferOutput<T> = T extends {
 
 /**
  * Extracts the input schema type from a `ForgeEndpoint` instance.
- *
- * @template T - The ForgeEndpoint instance type
- *
- * @example
- * ```typescript
- * type Input = InferClientControllerInput<typeof forgeAPI.users.create>
- * ```
  */
 export type InferClientControllerInput<T extends ForgeEndpoint<any>> =
   T['__type'] extends {
-    __isForgeController: true
+    __isForgeContract: true
     __input: infer I
     __media: infer M
   }
@@ -93,33 +128,28 @@ export type InferClientControllerInput<T extends ForgeEndpoint<any>> =
           body: M extends null
             ? B extends ZodObjectOrIntersection
               ? z.input<B>
-              : Record<string, any>
+              : B
             : (B extends ZodObjectOrIntersection
                 ? z.input<B>
-                : Record<string, any>) & {
+                : B extends undefined
+                  ? {}
+                  : B) & {
                 [K in keyof M]: {
                   __type: 'media'
                   config: M[K]
                 }
               }
-          query: Q extends ZodObjectOrIntersection ? z.input<Q> : never
+          query: Q extends ZodObjectOrIntersection ? z.input<Q> : Q
         }
       : never
     : never
 
 /**
  * Extracts the output (response) type from a `ForgeEndpoint` instance.
- *
- * @template T - The ForgeEndpoint instance type
- *
- * @example
- * ```typescript
- * type Output = InferClientControllerOutput<typeof forgeAPI.users.get>
- * ```
  */
 export type InferClientControllerOutput<T extends ForgeEndpoint<any>> =
   T['__type'] extends {
-    __isForgeController: true
+    __isForgeContract: true
     __output: infer O
   }
     ? O
@@ -128,51 +158,49 @@ export type InferClientControllerOutput<T extends ForgeEndpoint<any>> =
 /**
  * Constructs a deeply-nested proxy tree from a server route schema.
  * Each endpoint becomes a `ForgeEndpoint`, nested groups become more `ProxyTree`.
- *
- * This powers the chainable, type-safe API client.
- *
- * @template T - The API schema tree (from server route exports)
- *
- * @example
- * ```typescript
- * const forgeAPI = createForgeProxy<typeof serverRoutes>('https://api.example.com')
- * // forgeAPI.users.list -> ForgeEndpoint
- * // forgeAPI.posts.comments.create -> ForgeEndpoint
- * ```
  */
-export type ProxyTree<T> = {
-  [K in keyof T]: T[K] extends { __isForgeController: true }
-    ? ForgeEndpoint<T[K]>
-    : ProxyTree<T[K]>
-} & {
-  untyped: <TOutput = any, TBody = any, TQuery = any>(
-    url: string
-  ) => ForgeEndpoint<UntypedEndpointType<TOutput, TBody, TQuery>>
-  getMedia: (params: {
-    collectionId: string
-    recordId: string
-    fieldId: string
-    thumb?: string
-    token?: string
-  }) => string
-} & CoreHelperReturnTypes
+export type ProxyTree<T> = 0 extends 1 & T
+  ? {
+      [K: string]: any
+    } & {
+      untyped: <TOutput = any, TBody = any, TQuery = any>(
+        url: string
+      ) => ForgeEndpoint<UntypedEndpointType<TOutput, TBody, TQuery>>
+      getMedia: (params: {
+        collectionId: string
+        recordId: string
+        fieldId: string
+        thumb?: string
+        token?: string
+      }) => string
+    } & CoreHelperReturnTypes
+  : {
+      [K in keyof T]: T[K] extends { readonly method: string }
+        ? ForgeEndpoint<{
+            __isForgeContract: true
+            __input: InferContractInput<T[K]>
+            __output: InferContractOutput<T[K]>
+            __media: InferContractMedia<T[K]>
+          }>
+        : ProxyTree<T[K]>
+    } & {
+      untyped: <TOutput = any, TBody = any, TQuery = any>(
+        url: string
+      ) => ForgeEndpoint<UntypedEndpointType<TOutput, TBody, TQuery>>
+      getMedia: (params: {
+        collectionId: string
+        recordId: string
+        fieldId: string
+        thumb?: string
+        token?: string
+      }) => string
+    } & CoreHelperReturnTypes
 
 /**
  * Helper type for creating untyped endpoints.
- * Used by `forgeAPI.untyped()` when you need to call an endpoint without full type inference.
- *
- * @template TOutput - Expected response type
- * @template TBody - Request body type
- * @template TQuery - Query parameters type
- *
- * @example
- * ```typescript
- * const endpoint = forgeAPI.untyped<{ id: string }>('custom/endpoint')
- * const result = await endpoint.query()
- * ```
  */
 export type UntypedEndpointType<TOutput = any, TBody = any, TQuery = any> = {
-  __isForgeController: true
+  __isForgeContract: true
   __input: { body: TBody; query: TQuery }
   __output: TOutput
   __media: null

@@ -34,7 +34,7 @@ interface ListboxInputProps<T> {
   /** Whether the listbox uses custom active state styling. */
   customActive?: boolean
   /** The custom content to display in the listbox button. */
-  buttonContent: React.ReactElement
+  renderContent?: (value: T) => React.ReactNode
   /** Whether to show an action button inside the listbox. */
   hasActionButton?: boolean
   /** The i18n namespace for internationalization. See the [main documentation](https://docs.lifeforge.melvinchia.dev) for more details. */
@@ -59,7 +59,7 @@ export function ListboxInput<T>({
   className,
   children,
   customActive,
-  buttonContent,
+  renderContent,
   namespace,
   errorMsg
 }: ListboxInputPropsWithVariants<T>) {
@@ -128,25 +128,21 @@ export function ListboxInput<T>({
               <InputIcon active={isActive} hasError={!!errorMsg} icon={icon} />
             )}
             {variant === 'classic' && label && (
-              <Box
-                asChild
+              <InputLabel
+                active={isActive}
+                hasError={!!errorMsg}
+                label={inputLabel}
+                required={required === true}
                 style={{
                   marginLeft: 'calc(var(--spacing) * 14)'
                 }}
-              >
-                <InputLabel
-                  active={isActive}
-                  hasError={!!errorMsg}
-                  label={inputLabel}
-                  required={required === true}
-                />
-              </Box>
+              />
             )}
             <InputInnerWrapper hasActionButton variant={variant}>
               <Box minHeight="1.5em">
                 {variant === 'classic'
-                  ? isActive && buttonContent
-                  : buttonContent}
+                  ? isActive && renderContent?.(value)
+                  : renderContent?.(value)}
               </Box>
             </InputInnerWrapper>
           </Flex>

@@ -12,10 +12,38 @@ import scanFederatedModules, {
 const APPS_DIR = path.join(ROOT_DIR, 'apps')
 
 export const manifest = forge
-  .query()
-  .description('Get installed modules manifest for runtime loading')
-  .input({})
-  .callback(async ({ core: { tempFile } }) => {
+  .query({
+    description: 'Get installed modules manifest for runtime loading',
+    input: {},
+    output: {
+      OK: z.object({
+        modules: z.array(
+          z.object({
+            name: z.string(),
+            displayName: z.string(),
+            version: z.string(),
+            description: z.string(),
+            author: z.string(),
+            icon: z.string(),
+            category: z.string(),
+            remoteEntryUrl: z.string(),
+            isInternal: z.boolean(),
+            isDevMode: z.boolean().optional(),
+            APIKeyAccess: z
+              .record(
+                z.string(),
+                z.object({
+                  usage: z.string(),
+                  required: z.boolean()
+                })
+              )
+              .optional()
+          })
+        )
+      })
+    }
+  })
+  .callback(async ({ core: { tempFile }, response }) => {
     const modules: (ModuleManifestEntry & { isDevMode?: boolean })[] = []
 
     const devModeModules =
@@ -27,7 +55,7 @@ export const manifest = forge
 
     scanFederatedModules(internalAppsDir, modules, true, '/internal-modules')
 
-    return { modules }
+    return response.ok({ modules })
   })
 
 export interface InstalledModule {
@@ -45,13 +73,31 @@ export interface InstalledModule {
 }
 
 export const list = forge
-  .query()
-  .description('List installed modules with metadata')
-  .input({})
-  .callback(async ({ core: { tempFile } }) => {
+  .query({
+    description: 'List installed modules with metadata',
+    input: {},
+    output: {
+      OK: z.array(
+        z.object({
+          name: z.string(),
+          displayName: z.string(),
+          version: z.string(),
+          description: z.string(),
+          author: z.string(),
+          icon: z.string(),
+          category: z.string(),
+          isInternal: z.boolean(),
+          isDevMode: z.boolean(),
+          hasDist: z.boolean(),
+          hasSource: z.boolean()
+        })
+      )
+    }
+  })
+  .callback(async ({ core: { tempFile }, response }) => {
     const modules: InstalledModule[] = []
 
-    if (!fs.existsSync(APPS_DIR)) return modules
+    if (!fs.existsSync(APPS_DIR)) return response.ok(modules)
 
     const devModeModules =
       (new tempFile('module_dev_mode.json', 'array').read() as string[]) || []
@@ -68,7 +114,6 @@ export const list = forge
       try {
         const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
 
-        // Check if client dist exists (use dist-docker in Docker mode)
         const distDir =
           process.env.DOCKER_MODE === 'true' ? 'dist-docker' : 'dist'
 
@@ -116,29 +161,36 @@ export const list = forge
       }
     }
 
-    return modules
+    return response.ok(modules)
   })
 
 export const uninstall = forge
-  .mutation()
-  .description('Uninstall a module')
-  .input({
-    body: z.object({
-      moduleName: z.string().min(1)
-    })
+  .mutation({
+    description: 'Uninstall a module',
+    input: {
+      body: z.object({
+        moduleName: z.string().min(1)
+      })
+    },
+    output: {
+      OK: z.object({
+        success: z.boolean(),
+        error: z.string().optional()
+      })
+    }
   })
-  .callback(async ({ body: { moduleName } }) => {
+  .callback(async ({ body: { moduleName }, response }) => {
     try {
       execSync(`bun forge modules uninstall ${moduleName}`, {
         cwd: ROOT_DIR,
         stdio: 'pipe'
       })
 
-      return { success: true }
+      return response.ok({ success: true })
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'Uninstall failed'
 
-      return { success: false, error: message }
+      return response.ok({ success: false, error: message })
     }
   })
