@@ -1,10 +1,10 @@
 import _ from 'lodash'
 import { Fragment, useEffect, useMemo, useState } from 'react'
 
+import { useFederation } from '@lifeforge/federation'
 import {
   normalizeSubnamespace,
   useAuth,
-  useFederation,
   useLocation,
   useMainSidebarState
 } from '@lifeforge/shared'

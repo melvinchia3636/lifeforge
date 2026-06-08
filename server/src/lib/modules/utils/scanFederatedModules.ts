@@ -1,13 +1,42 @@
+import { generateModuleId } from '@functions/modules/loadModuleRoutes'
 import fs from 'fs'
 import path from 'path'
+import { z } from 'zod'
 
-import { packageJSONSchema } from '@lifeforge/shared'
+export const packageJSONSchema = z.object({
+  name: z.string(),
+  displayName: z.string(),
+  version: z.string(),
+  description: z.string(),
+  author: z.string(),
+  scripts: z
+    .object({
+      types: z.string()
+    })
+    .optional(),
+  dependencies: z.record(z.string(), z.string()).optional(),
+  devDependencies: z.record(z.string(), z.string()).optional(),
+  lifeforge: z.object({
+    icon: z.string(),
+    category: z.string(),
+    APIKeyAccess: z
+      .record(
+        z.string(),
+        z.object({
+          usage: z.string(),
+          required: z.boolean()
+        })
+      )
+      .optional()
+  })
+})
 
 /**
  * Module manifest entry for federated modules
  */
 export interface ModuleManifestEntry {
   name: string
+  moduleId: string
   displayName: string
   version: string
   description: string
@@ -83,6 +112,7 @@ export default function scanFederatedModules(
 
       modules.push({
         name: dir.name,
+        moduleId: generateModuleId(parsed.data.name),
         displayName: parsed.data.displayName,
         version: parsed.data.version,
         description: parsed.data.description,
