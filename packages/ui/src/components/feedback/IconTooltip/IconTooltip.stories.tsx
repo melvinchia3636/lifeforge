@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Button } from '@/components/inputs'
 import { Box, Flex, Icon, Text } from '@/components/primitives'
 
-import { Tooltip } from './index'
+import { IconTooltip } from './index'
 
 const meta = {
   argTypes: {
@@ -11,34 +10,35 @@ const meta = {
       control: false
     }
   },
-  component: Tooltip,
-  title: 'Utilities/Tooltip'
-} satisfies Meta<typeof Tooltip>
+  component: IconTooltip,
+  title: 'Utilities/IconTooltip'
+} satisfies Meta<typeof IconTooltip>
 
 export default meta
 
 type Story = StoryObj<typeof meta>
 
 /**
- * A simple tooltip attached to a trigger through `data-tooltip-id`.
+ * A simple tooltip with informational content.
  */
 export const Default: Story = {
   args: {
     children: 'This is helpful information for the user.',
+    icon: 'tabler:info-circle',
     id: 'info-tooltip'
   },
   render: args => (
     <Flex align="center" height="100%" justify="center" width="100%">
-      <Box>
-        <Button data-tooltip-id="info-tooltip">Hover over me</Button>
-        <Tooltip {...args} />
-      </Box>
+      <Flex align="center" gap="sm">
+        <Text>Hover over the icon</Text>
+        <IconTooltip {...args} />
+      </Flex>
     </Flex>
   )
 }
 
 /**
- * A tooltip with clickable content that stays open on click.
+ * A tooltip with clickable content.
  */
 export const ClickableTooltip: Story = {
   args: {
@@ -59,17 +59,15 @@ export const ClickableTooltip: Story = {
       </>
     ),
     clickable: true,
-    id: 'help-tooltip',
-    openOnClick: true
+    icon: 'tabler:question-circle',
+    id: 'help-tooltip'
   },
   render: args => (
     <Flex align="center" height="100%" justify="center" width="100%">
-      <Box>
-        <Button data-tooltip-id="help-tooltip" icon="tabler:help">
-          Click me
-        </Button>
-        <Tooltip {...args} />
-      </Box>
+      <Flex align="center" gap="sm">
+        <Text>Need help?</Text>
+        <IconTooltip {...args} />
+      </Flex>
     </Flex>
   )
 }
@@ -80,7 +78,7 @@ export const ClickableTooltip: Story = {
 export const DetailedTooltip: Story = {
   args: {
     children: (
-      <>
+      <Box maxWidth="20rem">
         <Text
           asChild
           color={{ base: 'bg-800', dark: 'bg-100' }}
@@ -96,23 +94,37 @@ export const DetailedTooltip: Story = {
           This is a detailed tooltip with multiple lines of information.
         </Text>
         <Text mt="sm">It can contain longer explanations and guides.</Text>
-      </>
+      </Box>
     ),
+    icon: 'tabler:info-circle',
     id: 'detailed-tooltip'
   },
   render: args => (
     <Flex align="center" height="100%" justify="center" width="100%">
-      <Box>
-        <Button data-tooltip-id="detailed-tooltip">Hover for details</Button>
-        <Tooltip {...args} />
-      </Box>
+      <Flex align="center" gap="sm">
+        <Text>Hover for details</Text>
+        <IconTooltip {...args} />
+      </Flex>
     </Flex>
   )
 }
 
-/**
- * A tooltip with custom content styling.
- */
+export const OpenOnClick: Story = {
+  args: {
+    children: 'This tooltip opens on click instead of hover.',
+    icon: 'tabler:info-circle',
+    id: 'click-tooltip'
+  },
+  render: args => (
+    <Flex align="center" height="100%" justify="center" width="100%">
+      <Flex align="center" gap="sm">
+        <Text>Click the icon</Text>
+        <IconTooltip {...args} openOnClick />
+      </Flex>
+    </Flex>
+  )
+}
+
 export const ErrorTooltip: Story = {
   args: {
     children: (
@@ -130,16 +142,18 @@ export const ErrorTooltip: Story = {
         </Text>
       </>
     ),
+    icon: 'tabler:alert-circle',
+    iconProps: {
+      color: 'red-500'
+    },
     id: 'error-tooltip'
   },
   render: args => (
     <Flex align="center" height="100%" justify="center" width="100%">
-      <Box>
-        <Button dangerous data-tooltip-id="error-tooltip">
-          Error info
-        </Button>
-        <Tooltip {...args} />
-      </Box>
+      <Flex align="center" gap="sm">
+        <Text>Error info</Text>
+        <IconTooltip {...args} />
+      </Flex>
     </Flex>
   )
 }
