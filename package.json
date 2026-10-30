@@ -92,7 +92,7 @@
     "dotenv": "^17.2.3",
     "drizzle-orm": "1.0.0-rc.4",
     "i18next": "^26.3.6",
-    "i18next-http-backend": "^2.7.3",
+    "i18next-http-backend": "^4.0.4",
     "lodash": "^4.17.21",
     "nuqs": "^2.7.1",
     "opentype.js": "^2.0.0",
